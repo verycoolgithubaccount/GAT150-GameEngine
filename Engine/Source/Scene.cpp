@@ -131,6 +131,7 @@ const Vector2 Scene::GetNearestEnemyPosition(Vector2 position)
 	{
 		if (actor->GetTag() == "Enemy" && distance == position.Distance(actor->GetTransform().translation)) return actor->GetTransform().translation;
 	}
+	return Vector2{ (float)HUGE_VAL, (float)HUGE_VAL };
 }
 
 const Vector2 Scene::GetNearestEnemyVelocity(Vector2 position)
@@ -147,6 +148,7 @@ const Vector2 Scene::GetNearestEnemyVelocity(Vector2 position)
 	{
 		if (actor->GetTag() == "Enemy" && distance == position.Distance(actor->GetTransform().translation)) return actor->GetVelocity();
 	}
+	return Vector2{ (float)HUGE_VAL, (float)HUGE_VAL };
 }
 
 const Vector2 Scene::GetNearestAlliedPosition(Vector2 position)
@@ -163,6 +165,7 @@ const Vector2 Scene::GetNearestAlliedPosition(Vector2 position)
 	{
 		if ((actor->GetTag() == "Player" || actor->GetTag() == "Ally") && distance == position.Distance(actor->GetTransform().translation)) return actor->GetTransform().translation;
 	}
+	return Vector2{ (float)HUGE_VAL, (float)HUGE_VAL };
 }
 
 const Vector2 Scene::GetNearestAlliedVelocity(Vector2 position)
@@ -179,4 +182,5 @@ const Vector2 Scene::GetNearestAlliedVelocity(Vector2 position)
 	{
 		if ((actor->GetTag() == "Player" || actor->GetTag() == "Ally") && distance == position.Distance(actor->GetTransform().translation)) return actor->GetVelocity();
 	}
+	return Vector2{ (float)HUGE_VAL, (float)HUGE_VAL };
 }
