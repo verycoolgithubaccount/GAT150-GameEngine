@@ -1,16 +1,16 @@
 #include "Scene.h"
-#include "Engine.h"
-#include "Model.h"
+#include "../Engine.h"
+#include "../Renderer/Model.h"
 #include <algorithm>
 
-void Scene::Update(float dt)
+void Scene::Update(float dt, Renderer& renderer, Audio& audio)
 {
 	for (Particle& star : m_stars)
 	{
-		star.Update(dt);
+		star.Update(dt, renderer);
 
-		star.position.x = Math::Wrap(star.position.x, (float)g_engine.GetRenderer().GetWidth());
-		star.position.y = Math::Wrap(star.position.y, (float)g_engine.GetRenderer().GetHeight());
+		star.position.x = Math::Wrap(star.position.x, (float)renderer.GetWidth());
+		star.position.y = Math::Wrap(star.position.y, (float)renderer.GetHeight());
 	}
 	for (auto& actor : m_actors)
 	{
@@ -19,7 +19,7 @@ void Scene::Update(float dt)
 
 	m_musicTimer -= dt;
 	if (m_musicTimer <= 0) {
-		g_engine.GetAudio().PlaySound("music.wav");
+		audio.PlaySound("music.wav");
 		m_musicTimer = 275;
 	}
 
@@ -101,14 +101,14 @@ void Scene::RemoveAll()
 	m_actors.clear();
 }
 
-void Scene::AddStars()
+void Scene::AddStars(Renderer& renderer)
 {
 	for (int i = 0; i < 400; i++)
 	{
 		float modifier = randomf();
 		
 		m_stars.push_back(Particle{
-			Vector2{ randomf((float)g_engine.GetRenderer().GetWidth()), randomf((float)g_engine.GetRenderer().GetHeight()) },
+			Vector2{ randomf((float)renderer.GetWidth()), randomf((float)renderer.GetHeight()) },
 			Vector2{ modifier * 10, 0.0f},
 			-42.0f,
 			Color{ (float)(0.5f * modifier * randomf(0.8f, 1.0f)), (float)(0.5f * modifier * randomf(0.8f, 1.0f)), (float)(0.5f * modifier * randomf(0.8f, 1.0f))},

@@ -1,7 +1,7 @@
 #pragma once
-#include "Transform.h"
-#include "Particle.h"
-#include "Model.h"
+#include "../Math/Transform.h"
+#include "../Renderer/Particle.h"
+#include "../Renderer/Model.h"
 #include <vector>
 #include <string>
 

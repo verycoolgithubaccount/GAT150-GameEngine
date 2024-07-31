@@ -12,7 +12,7 @@ public:
 		m_particles.resize(maxSize);
 	}
 
-	void Update(float dt);
+	void Update(float dt, Renderer& renderer);
 	void Draw(Renderer& renderer);
 
 	void AddParticle(const Particle::Data& data);

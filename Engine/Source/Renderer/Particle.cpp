@@ -1,5 +1,5 @@
 #include "Particle.h"
-#include "Engine.h"
+#include "../Engine.h"
 
 void Particle::Initialize(const Data& data)
 {
@@ -11,11 +11,11 @@ void Particle::Initialize(const Data& data)
 	SetColor(data.color);
 }
 
-void Particle::Update(float dt)
+void Particle::Update(float dt, Renderer& renderer)
 {
 	position = position + (velocity * dt); // Scale velocity by how much time has passed since last frame so it isn't framerate dependant
-	position.x = Math::Wrap(position.x, (float)g_engine.GetRenderer().GetWidth());
-	position.y = Math::Wrap(position.y, (float)g_engine.GetRenderer().GetHeight());
+	position.x = Math::Wrap(position.x, (float)renderer.GetWidth());
+	position.y = Math::Wrap(position.y, (float)renderer.GetHeight());
 	if (lifespan > 0) lifespan -= dt;
 	isActive = (lifespan > 0);
 }

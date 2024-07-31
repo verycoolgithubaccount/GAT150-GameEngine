@@ -1,26 +1,30 @@
 #pragma once
 
-#include "Renderer.h"
-#include "Input.h"
-#include "Audio.h"
+// ** core **
+#include "Core/ETime.h"
+#include "Core/EAssert.h"
+#include "Core/EFile.h"
 
-#include "EngineTime.h"
+// ** systems **
+// renderer
+#include "Renderer/Renderer.h"
+#include "Renderer/Particle.h"
+#include "Renderer/ParticleSystem.h"
+#include "Renderer/Model.h"
+//input
+#include "Input/Input.h"
+//audio
+#include "Audio/Audio.h"
 
-#include "Vector2.h"
-#include "Random.h"
-#include "MathUtils.h"
-
-#include "Particle.h"
-#include "ParticleSystem.h"
-
-#include "Model.h"
-#include "Transform.h"
+// ** math **
+#include "Math/Vector2.h"
+#include "Math/Random.h"
+#include "Math/MathUtils.h"
+#include "Math/Transform.h"
 
 #include <fmod.hpp>
 #include <SDL.h>
 #include <memory>
-
-#define RENDERER g_engine.GetRenderer()
 
 class Engine
 {
@@ -56,6 +60,4 @@ public:
 
 	bool GameQuit() { return quit; }
 };
-
-extern Engine g_engine;
 

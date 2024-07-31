@@ -1,13 +1,14 @@
 #pragma once
-#include "Particle.h"
+#include "../Renderer/Particle.h"
 #include "Actor.h"
-#include "Vector2.h"
+#include "../Math/Vector2.h"
 #include <list>
 #include <vector>
 #include <memory>
 #include <cmath>
 
 class Renderer;
+class Audio;
 class Game;
 
 class Scene
@@ -22,13 +23,13 @@ public:
 	//Scene() = default;
 	Scene(Game* game) : m_game{ game } {}
 	
-	void Update(float dt);
+	void Update(float dt, Renderer& renderer, Audio& audio);
 	void Draw(Renderer& renderer);
 
 	void AddActor(std::unique_ptr<Actor> actor);
 	void RemoveAll();
 
-	void AddStars();
+	void AddStars(Renderer& renderer);
 
 	bool HasStars() { return !m_stars.empty(); }
 

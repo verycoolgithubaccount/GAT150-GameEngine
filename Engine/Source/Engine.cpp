@@ -1,9 +1,10 @@
 #include "Engine.h"
-
-Engine g_engine;
+#include <crtdbg.h>
 
 bool Engine::Initialize()
 {
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
     //make_unique<Renderer>() instead of new Renderer() bc it's using a shared_ptr
     m_renderer = std::make_unique<Renderer>();
     m_input = std::make_unique<Input>();
@@ -26,6 +27,9 @@ void Engine::Shutdown()
     m_renderer->Shutdown();
     m_input->Shutdown();
     m_audio->Shutdown();
+
+    // Display memory leaks
+    _CrtMemDumpAllObjectsSince(NULL);
 }
 
 void Engine::Update()
@@ -46,5 +50,5 @@ void Engine::Update()
     m_time->Tick();
     m_input->Update();
     m_audio->Update();
-    m_particleSystem->Update(m_time->GetDeltaTime());
+    m_particleSystem->Update(m_time->GetDeltaTime(), *m_renderer);
 }

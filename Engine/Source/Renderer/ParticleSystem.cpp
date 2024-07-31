@@ -1,10 +1,10 @@
 #include "ParticleSystem.h"
 
-void ParticleSystem::Update(float dt)
+void ParticleSystem::Update(float dt, Renderer& renderer)
 {
 	for (auto& particle : m_particles)
 	{
-		if (particle.isActive) particle.Update(dt);
+		if (particle.isActive) particle.Update(dt, renderer);
 	}
 }
 
