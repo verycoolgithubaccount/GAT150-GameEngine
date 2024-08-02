@@ -93,6 +93,9 @@
     <ClInclude Include="Source\Framework\Game.h">
       <Filter>Source\Framework</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Renderer\Texture.h">
+      <Filter>Source\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\EAssert.cpp">
@@ -135,6 +138,9 @@
       <Filter>Source\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="Source\Renderer\Text.cpp">
+      <Filter>Source\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Renderer\Texture.cpp">
       <Filter>Source\Renderer</Filter>
     </ClCompile>
   </ItemGroup>

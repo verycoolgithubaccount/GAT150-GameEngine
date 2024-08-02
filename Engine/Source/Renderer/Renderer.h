@@ -1,8 +1,11 @@
 #pragma once
 #include "../Math/Vector2.h"
+#include <SDL_image.h>
 #include <iostream>
 #include <SDL.h>
 #include <SDL_ttf.h>
+
+class Texture;
 
 class Renderer 
 {
@@ -34,8 +37,11 @@ public:
 	void DrawRect(int x, int y, int w, int h);
 	void DrawRect(float x, float y, float w, float h);
 
+	void DrawTexture(Texture* texture, float x, float y, float angle = 0.0f);
+
 	int GetWidth() const { return m_width; }
 	int GetHeight() const { return m_height; }
 
 	friend class Text;
+	friend class Texture;
 };

@@ -195,6 +195,7 @@
     <ClInclude Include="Source\Renderer\ParticleSystem.h" />
     <ClInclude Include="Source\Renderer\Renderer.h" />
     <ClInclude Include="Source\Renderer\Text.h" />
+    <ClInclude Include="Source\Renderer\Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Audio\Audio.cpp" />
@@ -211,6 +212,7 @@
     <ClCompile Include="Source\Renderer\ParticleSystem.cpp" />
     <ClCompile Include="Source\Renderer\Renderer.cpp" />
     <ClCompile Include="Source\Renderer\Text.cpp" />
+    <ClCompile Include="Source\Renderer\Texture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

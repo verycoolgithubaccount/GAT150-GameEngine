@@ -11,6 +11,10 @@ int main(int argc, char* argv[])
 	File::SetFilePath("Assets");
 	std::cout << File::GetFilePath() << std::endl;
 
+	// create texture, using shared_ptr so texture can be shared
+	std::shared_ptr<Texture> texture = std::make_shared<Texture>();
+	texture->Load("Textures/yayitworks.png", engine->GetRenderer());
+
 	while (!engine->GameQuit())
 	{
 		engine->Update();
@@ -19,6 +23,7 @@ int main(int argc, char* argv[])
 		engine->GetRenderer().BeginFrame();
 
 		engine->GetParticleSystem().Draw(engine->GetRenderer());
+		engine->GetRenderer().DrawTexture(texture.get(), 30, 30);
 
 		engine->GetRenderer().EndFrame();
 	}
