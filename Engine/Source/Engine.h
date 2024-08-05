@@ -12,6 +12,8 @@
 #include "Renderer/ParticleSystem.h"
 #include "Renderer/Model.h"
 #include "Renderer/Texture.h"
+#include "Renderer/Font.h"
+#include "Renderer/Text.h"
 //input
 #include "Input/Input.h"
 //audio
@@ -22,6 +24,15 @@
 #include "Math/Random.h"
 #include "Math/MathUtils.h"
 #include "Math/Transform.h"
+
+// ** framework **
+#include "Framework/Actor.h"
+#include "Framework/Game.h"
+#include "Framework/Scene.h"
+
+// ** resources **
+#include "Resources/Resource.h"
+#include "Resources/ResourceManager.h"
 
 #include <fmod.hpp>
 #include <SDL.h>

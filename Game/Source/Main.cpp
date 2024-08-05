@@ -1,5 +1,4 @@
 #include "Engine.h"
-
 #include <iostream>
 #include <cassert>
 
@@ -12,8 +11,7 @@ int main(int argc, char* argv[])
 	std::cout << File::GetFilePath() << std::endl;
 
 	// create texture, using shared_ptr so texture can be shared
-	std::shared_ptr<Texture> texture = std::make_shared<Texture>();
-	texture->Load("Textures/yayitworks.png", engine->GetRenderer());
+	res_t<Texture> texture = ResourceManager::Instance().Get<Texture>("Textures/yayitworks.png", engine->GetRenderer());
 
 	while (!engine->GameQuit())
 	{

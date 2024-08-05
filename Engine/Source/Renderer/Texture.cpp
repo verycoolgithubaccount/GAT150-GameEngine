@@ -44,3 +44,13 @@ Vector2 Texture::GetSize()
 
     return Vector2{size.x, size.y};
 }
+
+bool Texture::Create(std::string name, ...)
+{
+    va_list args; // list of passed in variadic arguments
+    va_start(args, name);
+    Renderer renderer = va_arg(args, Renderer); // fontSize = first int in arguments
+    va_end(args);
+
+    return Load(name, renderer);
+}
