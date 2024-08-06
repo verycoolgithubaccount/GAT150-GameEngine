@@ -12,6 +12,8 @@ private:
 	std::map<std::string, res_t<Resource>> m_resources;
 
 public:
+	void Clear() { m_resources.clear(); }
+
 	template<typename T, typename ... TArgs>
 	res_t<T> Get(const std::string& name, TArgs ... args);
 

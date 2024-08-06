@@ -44,13 +44,13 @@ void Scene::Update(float dt, Renderer& renderer, Audio& audio)
 
 			Vector2 direction = actor1->GetTransform().translation - actor2->GetTransform().translation;
 			float distance = direction.Length();
-			float radius = actor1->GetRadius() + actor2->GetRadius();
+			//float radius = actor1->GetRadius() + actor2->GetRadius();
 
-			if (distance <= radius * 0.6)
-			{
-				actor1->OnCollision(actor2.get());
-				actor2->OnCollision(actor1.get());
-			}
+			//if (distance <= radius * 0.6)
+			//{
+			//	actor1->OnCollision(actor2.get());
+			//	actor2->OnCollision(actor1.get());
+			//}
 		}
 	}
 }
@@ -61,11 +61,11 @@ bool Scene::CheckHitByRay(Vector2 originPosition, Vector2 position, std::string 
 	{
 		if (actor->m_destroyed || actor->GetTransform().translation == originPosition) continue;
 
-		if ((actor->GetTransform().translation - position).Length() <= actor->GetRadius() * 0.6)
-		{
-			actor->HitByRay(rayTag);
-			return true;
-		}
+		//if ((actor->GetTransform().translation - position).Length() <= actor->GetRadius() * 0.6)
+		//{
+		//	actor->HitByRay(rayTag);
+		//	return true;
+		//}
 	}
 	return false;
 }
