@@ -10,9 +10,28 @@ int main(int argc, char* argv[])
 	File::SetFilePath("Assets");
 	std::cout << File::GetFilePath() << std::endl;
 
+	std::string s;
+	File::ReadFile("text.txt", s);
+	std::cout << s << std::endl;
+
+	rapidjson::Document document;
+	Json::Load("text.txt", document);
+
+	std::string name;
+	int age;
+	bool died;
+
+	READ_DATA(document, name);
+	READ_DATA(document, age);
+	READ_DATA(document, died);
+	std::cout << "Name: " << name << ", Age: " << age << ", Died: " << died << std::endl;
+
 	{
 		// create texture, using shared_ptr so texture can be shared
 		res_t<Texture> texture = ResourceManager::Instance().Get<Texture>("Textures/yayitworks.png", engine->GetRenderer());
+		res_t<Font> font = ResourceManager::Instance().Get<Font>("Fonts/Avignon.ttf", 12);
+		std::unique_ptr<Text> text = std::make_unique<Text>(font);
+		text->Create(engine->GetRenderer(), "yay it works", { 1, 1, 0 });
 
 		Transform transform{ { 100, 100 } };
 		std::unique_ptr<Actor> actor = std::make_unique<Actor>(transform);
@@ -32,6 +51,7 @@ int main(int argc, char* argv[])
 			engine->GetParticleSystem().Draw(engine->GetRenderer());
 			engine->GetRenderer().DrawTexture(texture.get(), 30, 30);
 			actor->Draw(engine->GetRenderer());
+			text->Draw(engine->GetRenderer(), 400, 400);
 
 			engine->GetRenderer().EndFrame();
 		}

@@ -1,7 +1,8 @@
 #pragma once
 #include "Color.h"
+#include "Resources/Resource.h"
 #include <SDL_ttf.h>
-#include<iostream>
+#include <iostream>
 
 class Font;
 class Renderer;
@@ -9,11 +10,11 @@ class Renderer;
 class Text
 {
 private:
-	Font* m_font{ nullptr };
+	res_t<Font> m_font{ nullptr };
 	SDL_Texture* m_texture{ nullptr };
 public:
 	Text() = default;
-	Text(Font* font) : m_font{ font } {}
+	Text(res_t<Font> font) : m_font{ font } {}
 	~Text();
 
 	bool Create(Renderer& renderer, const std::string& text, const Color& color);
