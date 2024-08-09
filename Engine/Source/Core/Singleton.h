@@ -13,6 +13,6 @@ public:
 	static T& Instance()
 	{
 		static T instance; // "static" because static variables don't go out of scope so it won't be re-created every time this function is run
-		return instance;
+		return instance; // returns the previously created Singleton, or a new one if it hasn't been created before
 	}
 };

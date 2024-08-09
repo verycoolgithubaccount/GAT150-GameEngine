@@ -5,6 +5,7 @@
 #include "Core/EAssert.h"
 #include "Core/EFile.h"
 #include "Core/Json.h"
+#include "Core/Factory.h"
 
 // ** systems **
 // renderer
@@ -74,6 +75,6 @@ public:
 	ParticleSystem& GetParticleSystem() { return *m_particleSystem; }
 	Time& GetTime() { return *m_time; }
 
-	bool GameQuit() { return quit; }
+	bool GameQuit() const { return quit; }
 };
 

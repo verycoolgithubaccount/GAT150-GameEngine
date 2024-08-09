@@ -19,33 +19,25 @@ protected:
 	float m_lifespan = 0;
 	float m_collisionCooldown = 0;
 
-	Transform m_transform;
+	Transform m_transform{ {0,0}, 0.0f, 0.0f };
 	Vector2 m_velocity{ 0, 0 };
 	float m_damping{ 0 }; // drag, velocity reduction
 
 	Scene* m_scene{ nullptr };
-	//Model* m_model{ nullptr }; 
-	// ^ You can do this if you don't want to include a class / use its members but want to reference or point to it
-	// Or you can put "class Model;" below the #includes and just put "Model*" here, like I did with Renderer
 
 	std::vector<std::unique_ptr<Component>> m_components;
 public:
 	Actor() = default;
 	Actor(const Transform& transform) : m_transform{ transform } {}
-	/*Actor(const Transform& transform, Model* model) :
-		m_transform{ transform },
-		m_model{ model }
-	{}
-	Actor(const Vector2& velocity, const Transform& transform, Model* model) :
-		m_velocity{ velocity },
-		m_transform{ transform },
-		m_model{ model }
-	{}*/
+
+	CLASS_DECLARATION(Actor);
 
 	void Initialize() override;
 
 	const Transform& GetTransform() { return m_transform; }
 	const Vector2& GetVelocity() { return m_velocity; }
+
+	void SetTransform(const Transform& transform) { m_transform = transform; }
 
 	virtual void Update(float dt);
 	virtual void Draw(Renderer& renderer);

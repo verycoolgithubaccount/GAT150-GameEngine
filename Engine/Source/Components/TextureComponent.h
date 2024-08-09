@@ -8,6 +8,7 @@ private:
 	res_t<Texture> m_texture;
 	std::string m_textureName;
 public:
+	CLASS_DECLARATION(TextureComponent);
 	void Initialize() override;
 	void Update(float dt) override;
 	void Draw(Renderer& renderer) override;
