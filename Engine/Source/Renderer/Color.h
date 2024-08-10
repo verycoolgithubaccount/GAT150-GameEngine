@@ -2,6 +2,7 @@
 #include "../Math/MathUtils.h"
 #include <cmath>
 #include <stdint.h>
+#include <iostream>
 
 struct Color
 {
@@ -35,6 +36,12 @@ struct Color
 	Color& operator -= (float s) { r -= s; g -= s; b -= s; a -= s; return *this; }
 	Color& operator *= (float s) { r *= s; g *= s; b *= s; a *= s; return *this; }
 	Color& operator /= (float s) { r /= s; g /= s; b /= s; a /= s; return *this; }
+
+	friend std::ostream& operator << (std::ostream& output, const Color& c)
+	{
+		output << "(" << c.r << ", " << c.g << ", " << c.b << ", " << c.a << ")";
+		return output;
+	}
 
 	static uint8_t ToInt(float value) { return static_cast<uint8_t>(Math::Clamp(value, 0.0f, 1.0f) * 255); } // static_cast casts at compiletime
 };

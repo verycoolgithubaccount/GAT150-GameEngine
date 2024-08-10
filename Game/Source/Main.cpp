@@ -14,21 +14,23 @@ int main(int argc, char* argv[])
 	File::SetFilePath("Assets");
 	std::cout << File::GetFilePath() << std::endl;
 
-	std::string s;
-	File::ReadFile("text.txt", s);
-	std::cout << s << std::endl;
-
 	rapidjson::Document document;
 	Json::Load("text.txt", document);
 
 	std::string name;
 	int age;
-	bool died;
+	float speed;
+	bool isAwake;
+	Vector2 position;
+	Color color;
 
 	READ_DATA(document, name);
 	READ_DATA(document, age);
-	READ_DATA(document, died);
-	std::cout << "Name: " << name << ", Age: " << age << ", Died: " << died << std::endl;
+	READ_DATA(document, speed);
+	READ_DATA(document, isAwake);
+	READ_DATA(document, position);
+	READ_DATA(document, color);
+	std::cout << "Name: " << name << ", Age: " << age << ", Speed: " << speed << ", Awake: " << isAwake << ", Position: " << position << ", Color: " << color <<  std::endl;
 
 	{
 		// create texture, using shared_ptr so texture can be shared
