@@ -1,6 +1,7 @@
 #pragma once
 #include "Resource.h"
-#include "../Core/Singleton.h"
+#include "Core/Singleton.h"
+#include "Core/EString.h"
 #include <map>
 #include <iostream>
 
@@ -23,21 +24,23 @@ public:
 template<typename T, typename ... TArgs>
 inline res_t<T> ResourceManager::Get(const std::string& name, TArgs ... args)
 {
-	if (m_resources.find(name) != m_resources.end()) // if the resource exists in the resource manager
+	std::string lowerName = ToLower(name);
+
+	if (m_resources.find(lowerName) != m_resources.end()) // if the resource exists in the resource manager
 	{
-		return std::dynamic_pointer_cast<T>(m_resources[name]);
+		return std::dynamic_pointer_cast<T>(m_resources[lowerName]);
 	}
 
 	// Resource not found, create resource
 	res_t<T> resource = std::make_shared<T>();
 
-	if (!resource->Create(name, args...))
+	if (!resource->Create(lowerName, args...))
 	{
 		std::cerr << "Could not create resource: " << name << std::endl;
 		return res_t<T>(); // basically a null pointer
 	}
 
-	m_resources[name] = resource; // add the resource to the resource manager
+	m_resources[lowerName] = resource; // add the resource to the resource manager
 
 	return resource;
 }

@@ -129,6 +129,12 @@
     <ClInclude Include="Source\Core\Factory.h">
       <Filter>Source\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Core\EString.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\Serializable.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\EAssert.cpp">
@@ -181,6 +187,15 @@
     </ClCompile>
     <ClCompile Include="Source\Core\Json.cpp">
       <Filter>Source\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\EString.cpp">
+      <Filter>Source\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Math\Transform.cpp">
+      <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Object.cpp">
+      <Filter>Source\Framework</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

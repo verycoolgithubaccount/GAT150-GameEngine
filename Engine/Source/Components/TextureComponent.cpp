@@ -21,3 +21,13 @@ void TextureComponent::Draw(Renderer& renderer)
 	Transform transform = m_owner->GetTransform().translation;
 	renderer.DrawTexture(m_texture.get(), transform.translation.x, transform.translation.y, transform.scale);
 }
+
+void TextureComponent::Read(const json_t& value)
+{
+	Json::Read(value, "textureName", m_textureName, true);
+}
+
+void TextureComponent::Write(json_t& value)
+{
+	//
+}

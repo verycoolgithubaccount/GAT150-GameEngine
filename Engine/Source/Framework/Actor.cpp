@@ -49,3 +49,16 @@ void Actor::AddComponent(std::unique_ptr<Component> component)
 	component->m_owner = this;
 	m_components.push_back(std::move(component));
 }
+
+void Actor::Read(const json_t& value)
+{
+	Object::Read(value);
+
+	Json::Read(value, "tag", m_tag);
+	Json::Read(value, "lifespan", m_lifespan);
+}
+
+void Actor::Write(json_t& value)
+{
+	//
+}
