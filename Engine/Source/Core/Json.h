@@ -7,6 +7,10 @@
 
 #define READ_DATA(value, data) Json::Read(value, #data, data) // if the key name is the same as the variable name, automatically uses the variable name for it
 #define READ_DATA_REQUIRED(value, data) Json::Read(value, #data, data, true)
+#define READ_DATA_NAME(value, name, data) Json::Read(value, name, data) // This is entirely unnecessary but looks prettier
+
+#define HAS_DATA(value, data) value.HasMember(#data)
+#define GET_DATA(value, data) value[#data]
 
 using json_t = rapidjson::Value;
 // typedef rapidjson::Value json_t; also works but isn't as readable

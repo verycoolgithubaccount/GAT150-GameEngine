@@ -1,5 +1,6 @@
 #include "Actor.h"
 #include "../Engine.h"
+#include "Core/Factory.h"
 #include "Components/RenderComponent.h"
 
 
@@ -29,8 +30,8 @@ void Actor::Update(float dt)
 		component->Update(dt);
 	}
 
-	m_transform.translation += (m_velocity * dt);
-	m_velocity *= 1.0f / (1.0f + m_damping * dt); // If there were air in space
+	//m_transform.position += (m_velocity * dt);
+	//m_velocity *= 1.0f / (1.0f + m_damping * dt); // If there were air in space
 }
 
 void Actor::Draw(Renderer& renderer)
@@ -56,6 +57,24 @@ void Actor::Read(const json_t& value)
 
 	Json::Read(value, "tag", m_tag);
 	Json::Read(value, "lifespan", m_lifespan);
+
+	// read transform
+	if (HAS_DATA(value, transform)) m_transform.Read(GET_DATA(value, transform));
+
+	// read components
+	if (HAS_DATA(value, components) && GET_DATA(value, components).IsArray())
+	{
+		for (auto& componentValue : GET_DATA(value, components).GetArray())
+		{
+			std::string type;
+			READ_DATA(componentValue, type);
+
+			auto component = Factory::Instance().Create<Component>(type);
+			component->Read(componentValue);
+
+			AddComponent(std::move(component));
+		}
+	}
 }
 
 void Actor::Write(json_t& value)

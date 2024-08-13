@@ -231,7 +231,8 @@
     <ClCompile Include="Source\Renderer\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\Build\Assets\text.txt" />
+    <None Include="..\Build\Assets\Scenes\scene.json" />
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

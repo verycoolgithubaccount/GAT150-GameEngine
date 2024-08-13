@@ -1,0 +1,32 @@
+{
+  "actors": [
+    {
+      "name": "player",
+      "transform": {
+        "position": [ 60, 60 ],
+        "rotation": 0,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/yayitworks.png"
+        }
+      ]
+    },
+    {
+      "name": "enemy",
+      "transform": {
+        "position": [ 200, 200 ],
+        "rotation": 90,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/yayitworks.png"
+        }
+      ]
+    }
+  ]
+}

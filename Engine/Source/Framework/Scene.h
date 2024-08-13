@@ -1,7 +1,8 @@
 #pragma once
-#include "../Renderer/Particle.h"
+#include "Object.h"
+#include "Renderer/Particle.h"
 #include "Actor.h"
-#include "../Math/Vector2.h"
+#include "Math/Vector2.h"
 #include <list>
 #include <vector>
 #include <memory>
@@ -10,18 +11,22 @@
 class Renderer;
 class Audio;
 class Game;
+class Engine;
 
-class Scene
+class Scene : public Object
 {
 protected:
-	std::list<std::unique_ptr<Actor>> m_actors;
+	std::list<std::unique_ptr<Actor>> actors;
 	std::vector<Particle> m_stars;
 
 	Game* m_game{ nullptr };
 	float m_musicTimer = 0;
+
+	Engine* m_engine{ nullptr };
 public:
-	//Scene() = default;
-	Scene(Game* game) : m_game{ game } {}
+	CLASS_DECLARATION(Scene);
+
+	Scene(Engine* engine, Game* game = nullptr) : m_engine{ engine }, m_game{ game } {}
 	
 	void Update(float dt, Renderer& renderer, Audio& audio);
 	void Draw(Renderer& renderer);
@@ -39,18 +44,20 @@ public:
 	bool CheckHitByRay(Vector2 originPosition, Vector2 position, std::string rayTag);
 
 	const Vector2 GetNearestEnemyPosition(Vector2 position);
-	const Vector2 GetNearestEnemyVelocity(Vector2 position);
 	
 	const Vector2 GetNearestAlliedPosition(Vector2 position);
-	const Vector2 GetNearestAlliedVelocity(Vector2 position);
 
 	Game* GetGame() { return m_game; }
+	Engine* GetEngine() { return m_engine; }
+
+	// Inherited via Object
+	void Initialize() override;
 };
 
 template<typename T> // Template functions HAVE to be in the header
 T* Scene::GetActor()
 {
-	for (auto& actor : m_actors)
+	for (auto& actor : actors)
 	{
 		T* result = dynamic_cast<T*>(actor.get()); // Cast to type T if possible
 		if (result) return result;

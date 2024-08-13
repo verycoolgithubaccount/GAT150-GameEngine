@@ -199,8 +199,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\Build\Assets\text.txt">
+    <None Include="..\Build\Assets\Scenes\scene.json">
       <Filter>Resource Files</Filter>
-    </Text>
+    </None>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>
