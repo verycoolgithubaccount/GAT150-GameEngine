@@ -135,6 +135,12 @@
     <ClInclude Include="Source\Core\Serializable.h">
       <Filter>Source\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Components\PhysicsComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\EnginePhysicsComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\EAssert.cpp">
@@ -197,11 +203,14 @@
     <ClCompile Include="Source\Framework\Object.cpp">
       <Filter>Source\Framework</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Components\EnginePhysicsComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\PhysicsComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Build\Assets\Scenes\scene.json">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

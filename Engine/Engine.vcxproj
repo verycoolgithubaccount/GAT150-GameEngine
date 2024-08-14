@@ -177,6 +177,8 @@
   <ItemGroup>
     <ClInclude Include="Source\Audio\Audio.h" />
     <ClInclude Include="Source\Components\Component.h" />
+    <ClInclude Include="Source\Components\EnginePhysicsComponent.h" />
+    <ClInclude Include="Source\Components\PhysicsComponent.h" />
     <ClInclude Include="Source\Components\RenderComponent.h" />
     <ClInclude Include="Source\Components\TextureComponent.h" />
     <ClInclude Include="Source\Core\EAssert.h" />
@@ -210,6 +212,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Audio\Audio.cpp" />
+    <ClCompile Include="Source\Components\EnginePhysicsComponent.cpp" />
+    <ClCompile Include="Source\Components\PhysicsComponent.cpp" />
     <ClCompile Include="Source\Components\TextureComponent.cpp" />
     <ClCompile Include="Source\Core\EAssert.cpp" />
     <ClCompile Include="Source\Core\EFile.cpp" />
@@ -231,7 +235,6 @@
     <ClCompile Include="Source\Renderer\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Build\Assets\Scenes\scene.json" />
     <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

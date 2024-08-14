@@ -6,6 +6,7 @@
 #include <SDL_ttf.h>
 
 class Texture;
+struct Transform;
 
 class Renderer 
 {
@@ -38,6 +39,7 @@ public:
 	void DrawRect(float x, float y, float w, float h);
 
 	void DrawTexture(Texture* texture, float x, float y, float angle = 0.0f);
+	void DrawTexture(Texture* texture, const Transform& transform, bool hflip = false);
 
 	int GetWidth() const { return m_width; }
 	int GetHeight() const { return m_height; }

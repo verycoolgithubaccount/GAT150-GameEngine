@@ -20,8 +20,7 @@ void TextureComponent::Update(float dt)
 
 void TextureComponent::Draw(Renderer& renderer)
 {
-	Transform transform = m_owner->GetTransform();
-	renderer.DrawTexture(m_texture.get(), transform.position.x, transform.position.y, transform.rotation);
+	renderer.DrawTexture(m_texture.get(), m_owner->GetTransform());
 }
 
 void TextureComponent::Read(const json_t& value)

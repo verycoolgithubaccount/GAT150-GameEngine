@@ -22,8 +22,8 @@ public:
 
 	void Update();
 
-	bool getKeyDown(uint8_t key) { return m_keyboardState[key]; }
-	bool getPreviousKeyDown(uint8_t key) { return m_prevKeyboardState[key]; }
+	bool GetKeyDown(uint8_t key) { return m_keyboardState[key]; }
+	bool GetPreviousKeyDown(uint8_t key) { return m_prevKeyboardState[key]; }
 
 	Vector2 GetMousePosition() { return m_mousePosition; }
 	bool GetMouseButtonDown(uint8_t button) { return m_mouseButtonState[button]; }

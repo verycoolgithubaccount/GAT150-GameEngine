@@ -5,12 +5,21 @@
       "transform": {
         "position": [ 60, 60 ],
         "rotation": 0,
-        "scale": 1
+        "scale": 0.5
       },
       "components": [
         {
           "type": "TextureComponent",
           "textureName": "Textures/yayitworks.png"
+        },
+        {
+          "type": "EnginePhysicsComponent",
+          "velocity": [ 100, 0 ],
+          "damping": 0
+        },
+        {
+          "type": "PlayerComponent",
+          "speed": 50
         }
       ]
     },
@@ -19,7 +28,7 @@
       "transform": {
         "position": [ 200, 200 ],
         "rotation": 90,
-        "scale": 1
+        "scale": 0.8
       },
       "components": [
         {
