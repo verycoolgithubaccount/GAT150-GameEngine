@@ -63,6 +63,8 @@ public:
 	Scene* GetScene() { return m_scene; }
 
 	friend class Scene;
+
+	void Rotate(float rotationAmount) { m_transform.rotation += rotationAmount; }
 };
 
 template<typename T>

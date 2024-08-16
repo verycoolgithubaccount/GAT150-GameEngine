@@ -11,7 +11,7 @@ class Object : public Serializable
 {
 protected:
 	std::string m_name;
-	bool m_active{ false };
+	bool m_active{ true };
 public:
 	Object() = default;
 	Object(const std::string& name) : m_name{ name } {}

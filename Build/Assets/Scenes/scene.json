@@ -36,6 +36,23 @@
           "textureName": "Textures/yayitworks.png"
         }
       ]
+    },
+    {
+      "name": "text",
+      "transform": {
+        "position": [ 200, 200 ],
+        "rotation": 90,
+        "scale": 0.8
+      },
+      "components": [
+        {
+          "type": "TextComponent",
+          "text": "Hello",
+          "fontName": "Fonts/Avignon.ttf",
+          "color": [ 0, 0.5, 0, 1 ],
+          "fontSize":  24
+        }
+      ]
     }
   ]
 }

@@ -13,6 +13,8 @@ private:
 
 public:
 	Texture() = default;
+	Texture(struct SDL_Texture* texture) : m_texture{ texture } {}
+
 	~Texture();
 
 	Vector2 GetSize();

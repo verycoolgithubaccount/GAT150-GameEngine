@@ -180,6 +180,7 @@
     <ClInclude Include="Source\Components\EnginePhysicsComponent.h" />
     <ClInclude Include="Source\Components\PhysicsComponent.h" />
     <ClInclude Include="Source\Components\RenderComponent.h" />
+    <ClInclude Include="Source\Components\TextComponent.h" />
     <ClInclude Include="Source\Components\TextureComponent.h" />
     <ClInclude Include="Source\Core\EAssert.h" />
     <ClInclude Include="Source\Core\EFile.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="Source\Audio\Audio.cpp" />
     <ClCompile Include="Source\Components\EnginePhysicsComponent.cpp" />
     <ClCompile Include="Source\Components\PhysicsComponent.cpp" />
+    <ClCompile Include="Source\Components\TextComponent.cpp" />
     <ClCompile Include="Source\Components\TextureComponent.cpp" />
     <ClCompile Include="Source\Core\EAssert.cpp" />
     <ClCompile Include="Source\Core\EFile.cpp" />

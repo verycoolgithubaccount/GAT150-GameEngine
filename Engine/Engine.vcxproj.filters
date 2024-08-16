@@ -141,6 +141,9 @@
     <ClInclude Include="Source\Components\EnginePhysicsComponent.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Components\TextComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\EAssert.cpp">
@@ -207,6 +210,9 @@
       <Filter>Source\Components</Filter>
     </ClCompile>
     <ClCompile Include="Source\Components\PhysicsComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\TextComponent.cpp">
       <Filter>Source\Components</Filter>
     </ClCompile>
   </ItemGroup>

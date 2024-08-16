@@ -38,8 +38,8 @@ public:
 
 	bool HasStars() { return !m_stars.empty(); }
 
-	template<typename T>
-	T* GetActor();
+	template<typename T> T* GetActor();
+	template<typename T> T* GetActor(const std::string& name);
 
 	bool CheckHitByRay(Vector2 originPosition, Vector2 position, std::string rayTag);
 
@@ -61,6 +61,21 @@ T* Scene::GetActor()
 	{
 		T* result = dynamic_cast<T*>(actor.get()); // Cast to type T if possible
 		if (result) return result;
+
+		// Basically, what this does is when this function is called you need to specify the type you're looking for in <>,
+		// and it searches through m_actors until it finds something of that type and returns it
+	}
+
+	return nullptr;
+}
+
+template<typename T>
+inline T* Scene::GetActor(const std::string& name)
+{
+	for (auto& actor : actors)
+	{
+		T* result = dynamic_cast<T*>(actor.get()); // Cast to type T if possible
+		if (result && IsEqualIgnoreCase(result->GetName(), name)) return result;
 
 		// Basically, what this does is when this function is called you need to specify the type you're looking for in <>,
 		// and it searches through m_actors until it finds something of that type and returns it

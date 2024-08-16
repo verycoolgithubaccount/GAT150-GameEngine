@@ -22,7 +22,7 @@ void Scene::Update(float dt, Renderer& renderer, Audio& audio)
 	}
 	for (auto& actor : actors)
 	{
-		actor->Update(dt);
+		if (actor->isActive()) actor->Update(dt);
 	}
 
 	m_musicTimer -= dt;
@@ -42,27 +42,6 @@ void Scene::Update(float dt, Renderer& renderer, Audio& audio)
 	//m_actors.erase(std::remove_if(m_actors.begin(), m_actors.end(), [](Actor* actor) { return actor->m_destroyed; }), m_actors.end());
 	// Starting at begin until end, remove_if iterates through and adds actor to an array if it's destroyed, then erase deletes it
 	std::erase_if(actors, [](auto& actor) { return actor->m_destroyed; }); // Same as above^
-
-	// collision
-	/*
-	for (auto& actor1 : m_actors)
-	{
-		for (auto& actor2 : m_actors)
-		{
-			if (actor1 == actor2 || (actor1->m_destroyed || actor2->m_destroyed)) continue;
-
-			Vector2 direction = actor1->GetTransform().translation - actor2->GetTransform().translation;
-			float distance = direction.Length();
-			//float radius = actor1->GetRadius() + actor2->GetRadius();
-
-			//if (distance <= radius * 0.6)
-			//{
-			//	actor1->OnCollision(actor2.get());
-			//	actor2->OnCollision(actor1.get());
-			//}
-		}
-	}
-	*/
 }
 
 bool Scene::CheckHitByRay(Vector2 originPosition, Vector2 position, std::string rayTag)
@@ -96,7 +75,7 @@ void Scene::Draw(Renderer& renderer)
 
 	for (auto& actor : actors)
 	{
-		actor->Draw(renderer);
+		if (actor->isActive()) actor->Draw(renderer);
 	}
 }
 

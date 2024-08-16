@@ -4,6 +4,7 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <memory>
 
 class Texture;
 struct Transform;
@@ -38,8 +39,9 @@ public:
 	void DrawRect(int x, int y, int w, int h);
 	void DrawRect(float x, float y, float w, float h);
 
-	void DrawTexture(Texture* texture, float x, float y, float angle = 0.0f);
-	void DrawTexture(Texture* texture, const Transform& transform, bool hflip = false);
+	// weak_ptr doesn't own the pointer and doesn't bump up the reference count, it has to be converted to shared_ptr to access the object
+	void DrawTexture(std::weak_ptr<Texture> texture, float x, float y, float angle = 0.0f);  
+	void DrawTexture(std::weak_ptr<Texture> texture, const Transform& transform, bool hflip = false);
 
 	int GetWidth() const { return m_width; }
 	int GetHeight() const { return m_height; }

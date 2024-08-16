@@ -49,7 +49,7 @@ bool Texture::Create(std::string name, ...)
 {
     va_list args; // list of passed in variadic arguments
     va_start(args, name);
-    Renderer renderer = va_arg(args, Renderer); // fontSize = first int in arguments
+    Renderer& renderer = va_arg(args, Renderer); // fontSize = first int in arguments
     va_end(args);
 
     return Load(name, renderer);
