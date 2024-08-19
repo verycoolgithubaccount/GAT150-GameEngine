@@ -176,6 +176,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Source\Audio\Audio.h" />
+    <ClInclude Include="Source\Components\CircleCollisionComponent.h" />
+    <ClInclude Include="Source\Components\CollisionComponent.h" />
     <ClInclude Include="Source\Components\Component.h" />
     <ClInclude Include="Source\Components\EnginePhysicsComponent.h" />
     <ClInclude Include="Source\Components\PhysicsComponent.h" />
@@ -213,6 +215,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Audio\Audio.cpp" />
+    <ClCompile Include="Source\Components\CircleCollisionComponent.cpp" />
     <ClCompile Include="Source\Components\EnginePhysicsComponent.cpp" />
     <ClCompile Include="Source\Components\PhysicsComponent.cpp" />
     <ClCompile Include="Source\Components\TextComponent.cpp" />

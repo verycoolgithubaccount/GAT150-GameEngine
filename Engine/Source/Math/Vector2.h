@@ -52,17 +52,16 @@ struct Vector2
 		return (x == x && y == y);
 	}
 
+	// The point of having length and distance squared functions are so you don't need to do a square root operation
+	// if you're just comparing distances to see which is larger
+
 	float LengthSqr() const { return (x * x) + (y * y); }
 	float Length() const { return Math::Sqrt((x * x) + (y * y)); }
 
-	float Angle() const { return Math::Atan2(y, x); }
+	float DistanceSqr(const Vector2& other) const { return (other - *this).LengthSqr(); }
+	float Distance(const Vector2& other) const { return (other - *this).Length(); }
 
-	float Distance(const Vector2& other) const 
-	{ 
-		float xSquared = (other.x - x) * (other.x - x);
-		float ySquared = (other.y - y) * (other.y - y);
-		return Math::Sqrt((float)(xSquared + ySquared)); 
-	}
+	float Angle() const { return Math::Atan2(y, x); }
 
 	Vector2 Rotate(float radians) const;
 

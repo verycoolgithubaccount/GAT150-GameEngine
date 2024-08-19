@@ -1,25 +1,43 @@
 {
   "actors": [
     {
-      "name": "player",
+      "name": "background",
       "transform": {
-        "position": [ 60, 60 ],
+        "position": [ 0, 0 ],
         "rotation": 0,
-        "scale": 0.5
+        "scale": 3
       },
       "components": [
         {
           "type": "TextureComponent",
-          "textureName": "Textures/yayitworks.png"
+          "textureName": "Textures/purple_nebula.png"
+        }
+      ]
+    },
+    {
+      "name": "player",
+      "transform": {
+        "position": [ 60, 60 ],
+        "rotation": 0,
+        "scale": 2
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/ship_player.png"
         },
         {
           "type": "EnginePhysicsComponent",
-          "velocity": [ 100, 0 ],
+          "velocity": [ 0, 0 ],
           "damping": 0
         },
         {
           "type": "PlayerComponent",
           "speed": 50
+        },
+        {
+          "type": "CircleCollisionComponent",
+          "radius": 24
         }
       ]
     },
@@ -28,17 +46,22 @@
       "transform": {
         "position": [ 200, 200 ],
         "rotation": 90,
-        "scale": 0.8
+        "scale": 2
       },
       "components": [
         {
           "type": "TextureComponent",
-          "textureName": "Textures/yayitworks.png"
+          "textureName": "Textures/ship_enemy.png"
+        },
+        {
+          "type": "CircleCollisionComponent",
+          "radius": 24
         }
       ]
     },
     {
       "name": "text",
+      "active": false,
       "transform": {
         "position": [ 200, 200 ],
         "rotation": 90,
@@ -50,7 +73,7 @@
           "text": "Hello",
           "fontName": "Fonts/Avignon.ttf",
           "color": [ 0, 0.5, 0, 1 ],
-          "fontSize":  24
+          "fontSize": 24
         }
       ]
     }

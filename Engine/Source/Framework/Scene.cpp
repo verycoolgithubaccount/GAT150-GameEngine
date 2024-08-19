@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "Engine.h"
 #include "Core/Factory.h"
+#include "Components/CollisionComponent.h"
 #include <algorithm>
 
 void Scene::Initialize()
@@ -20,26 +21,40 @@ void Scene::Update(float dt, Renderer& renderer, Audio& audio)
 		star.position.x = Math::Wrap(star.position.x, (float)renderer.GetWidth());
 		star.position.y = Math::Wrap(star.position.y, (float)renderer.GetHeight());
 	}
+	
 	for (auto& actor : actors)
 	{
 		if (actor->isActive()) actor->Update(dt);
 	}
 
+	for (auto& actor1 : actors)
+	{
+		CollisionComponent* collision1 = actor1->GetComponent<CollisionComponent>();
+		if (!collision1) continue;
+
+		for (auto& actor2 : actors)
+		{
+			if (actor1 == actor2) continue;
+
+			CollisionComponent* collision2 = actor2->GetComponent<CollisionComponent>();
+			if (!collision2) continue;
+
+			if (collision1->CheckCollision(collision2))
+			{
+				// If the function exists, call that function
+				if (actor1->OnCollisionEnter) actor1->OnCollisionEnter(actor2.get());
+				if (actor2->OnCollisionEnter) actor2->OnCollisionEnter(actor1.get());
+			}
+		}
+	}
+
 	m_musicTimer -= dt;
 	if (m_musicTimer <= 0) {
-		audio.PlaySound("music.wav");
+	//	audio.PlaySound("music.wav");
 		m_musicTimer = 275;
 	}
 
 	// destroy
-	//auto iter = m_actors.begin(); // "auto" automatically knows the type is std::list<Actor*>::iterator
-	//while (iter != m_actors.end()) 
-	//{
-	//	iter = ((*iter)->m_destroyed) ? m_actors.erase(iter) : ++iter; // It has to be ++iter and not iter++ because of something to do with when it adds the 1
-	//}
-
-	// An alternative to above ^ 
-	//m_actors.erase(std::remove_if(m_actors.begin(), m_actors.end(), [](Actor* actor) { return actor->m_destroyed; }), m_actors.end());
 	// Starting at begin until end, remove_if iterates through and adds actor to an array if it's destroyed, then erase deletes it
 	std::erase_if(actors, [](auto& actor) { return actor->m_destroyed; }); // Same as above^
 }

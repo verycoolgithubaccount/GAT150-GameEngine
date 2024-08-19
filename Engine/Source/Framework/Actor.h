@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <functional>
 
 class Renderer;
 class Scene;
@@ -39,6 +40,9 @@ public:
 
 	virtual void Update(float dt);
 	virtual void Draw(Renderer& renderer);
+
+	//void return type, passing in Actor*
+	std::function<void(Actor*)> OnCollisionEnter;
 
 	void AddComponent(std::unique_ptr<Component> component);
 

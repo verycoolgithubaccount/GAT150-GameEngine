@@ -144,6 +144,12 @@
     <ClInclude Include="Source\Components\TextComponent.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Components\CollisionComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\CircleCollisionComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\EAssert.cpp">
@@ -213,6 +219,9 @@
       <Filter>Source\Components</Filter>
     </ClCompile>
     <ClCompile Include="Source\Components\TextComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\CircleCollisionComponent.cpp">
       <Filter>Source\Components</Filter>
     </ClCompile>
   </ItemGroup>

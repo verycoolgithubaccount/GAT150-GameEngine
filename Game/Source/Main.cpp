@@ -3,13 +3,17 @@
 #include <iostream>
 #include <cassert>
 
+void func1(int i) { std::cout << "func1: " << i << std::endl; }
+void func2(int i) { std::cout << "func2: " << i << std::endl; }
+
 int main(int argc, char* argv[])
 {
-	Factory::Instance().Register<Actor>(Actor::GetTypeName());
-	Factory::Instance().Register<TextureComponent>(TextureComponent::GetTypeName());
-	Factory::Instance().Register<EnginePhysicsComponent>(EnginePhysicsComponent::GetTypeName());
-	Factory::Instance().Register<PlayerComponent>(PlayerComponent::GetTypeName());
-	Factory::Instance().Register<TextComponent>(TextComponent::GetTypeName());
+	void(*fp)(int);
+
+	fp = &func1;
+	fp(5);
+	fp = &func2;
+	fp(8);
 
 	std::unique_ptr<Engine> engine = std::make_unique<Engine>(); // unique ptr so it deletes when out of scope
 	engine->Initialize();

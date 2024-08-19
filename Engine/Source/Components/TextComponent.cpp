@@ -4,6 +4,8 @@
 #include "Framework/Actor.h"
 #include <memory>
 
+FACTORY_REGISTER(TextComponent)
+
 void TextComponent::Initialize()
 {
 	std::cout << m_fontSize;
