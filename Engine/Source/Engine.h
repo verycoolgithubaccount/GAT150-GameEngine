@@ -46,6 +46,7 @@
 #include "Components/TextureAnimationComponent.h"
 #include "Components/EnginePhysicsComponent.h"
 #include "Components/TextComponent.h"
+#include "Components/AudioComponent.h"
 
 // ** physics **
 #include "Physics/Physics.h"

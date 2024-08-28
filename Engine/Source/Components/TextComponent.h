@@ -18,7 +18,7 @@ public:
 	TextComponent() = default;
 
 	CLASS_DECLARATION(TextComponent);
-	CLASS_PROTOTYPE(TextComponent)
+	CLASS_PROTOTYPE(TextComponent);
 
 	void Initialize() override;
 	void Update(float dt) override;

@@ -26,7 +26,7 @@ void CharacterComponent::Update(float dt)
 
 	if ((input.GetKeyDown(SDL_SCANCODE_SPACE) || input.GetKeyDown(SDL_SCANCODE_UP)) && onGround)
 	{
-		physics->SetVelocity(Vector2{ 0, (int) -m_speed });
+		physics->SetVelocity(physics->GetVelocity() + Vector2{ 0, (int) (-m_speed * 0.75f) });
 	}
 
 	if (physics->GetVelocity().x < -0.1f) animation->SetHFlip(true);
@@ -38,6 +38,7 @@ void CharacterComponent::Update(float dt)
 
 void CharacterComponent::OnCollisionEnter(Actor* actor)
 {
+	if (actor->GetTag() == "coin") m_owner->GetComponent<AudioComponent>()->Stop();
 	//EVENT_NOTIFY(PlayerDead);
 	if (actor->GetTag() == "ground") m_groundCount++;
 }

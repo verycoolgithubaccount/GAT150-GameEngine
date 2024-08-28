@@ -13,9 +13,9 @@ void PlayerComponent::Update(float dt)
 	float rotate = 0;
 	float thrust = 0;
 	auto& input = m_owner->GetScene()->GetEngine()->GetInput();
-	if (input.GetKeyDown(SDL_SCANCODE_A) || input.GetKeyDown(SDL_SCANCODE_LEFT)) rotate = -0.3;
-	if (input.GetKeyDown(SDL_SCANCODE_D) || input.GetKeyDown(SDL_SCANCODE_RIGHT)) rotate = 0.3;
-	if (input.GetKeyDown(SDL_SCANCODE_W) || input.GetKeyDown(SDL_SCANCODE_UP)) thrust = 0.5;
+	if (input.GetKeyDown(SDL_SCANCODE_A) || input.GetKeyDown(SDL_SCANCODE_LEFT)) rotate = -0.3f;
+	if (input.GetKeyDown(SDL_SCANCODE_D) || input.GetKeyDown(SDL_SCANCODE_RIGHT)) rotate = 0.3f;
+	if (input.GetKeyDown(SDL_SCANCODE_W) || input.GetKeyDown(SDL_SCANCODE_UP)) thrust = 0.5f;
 	//if (input.GetKeyDown(SDL_SCANCODE_S) || input.GetKeyDown(SDL_SCANCODE_DOWN)) thrust = -0.5;
 
 	Vector2 direction = m_owner->GetTransform().GetForwardVector();

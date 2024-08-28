@@ -60,13 +60,21 @@
         {
           "type": "CharacterComponent",
           "speed": 200
+        },
+        {
+          "type": "AudioComponent",
+          "soundName": "Sounds/laser.wav",
+          "playOnStart": true,
+          "loop": true
         }
+
       ]
     },
     {
       "name": "coin",
+      "tag": "coin",
       "transform": {
-        "position": [ 100, 100 ],
+        "position": [ 200, 200 ],
         "rotation": 0,
         "scale": 1.5
       },
@@ -85,6 +93,13 @@
               "textureName": "Textures/coin.png"
             }
           ]
+        },
+        {
+          "type": "Box2DPhysicsComponent",
+          "gravityScale": 0,
+          "constrainAngle": true,
+          "shape": "capsule",
+          "isSensor": true
         }
       ]
     }

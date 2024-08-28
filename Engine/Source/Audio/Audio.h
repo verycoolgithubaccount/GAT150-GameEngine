@@ -20,4 +20,7 @@ public:
 
 	bool AddSound(const std::string& name);
 	bool PlaySound(const std::string& name);
+
+	friend class AudioClip;
+	friend class AudioSource;
 };
