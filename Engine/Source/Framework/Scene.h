@@ -25,13 +25,14 @@ protected:
 	Engine* m_engine{ nullptr };
 public:
 	CLASS_DECLARATION(Scene);
+	CLASS_PROTOTYPE(Scene)
 
 	Scene(Engine* engine, Game* game = nullptr) : m_engine{ engine }, m_game{ game } {}
 	
 	void Update(float dt, Renderer& renderer, Audio& audio);
 	void Draw(Renderer& renderer);
 
-	void AddActor(std::unique_ptr<Actor> actor);
+	void AddActor(std::unique_ptr<Actor> actor, bool initialize);
 	void RemoveAll();
 
 	void AddStars(Renderer& renderer);
@@ -43,15 +44,13 @@ public:
 
 	bool CheckHitByRay(Vector2 originPosition, Vector2 position, std::string rayTag);
 
-	const Vector2 GetNearestEnemyPosition(Vector2 position);
-	
-	const Vector2 GetNearestAlliedPosition(Vector2 position);
-
 	Game* GetGame() { return m_game; }
 	Engine* GetEngine() { return m_engine; }
 
 	// Inherited via Object
 	void Initialize() override;
+
+	Scene(const Scene& other) { /* Can't copy scene */ }
 };
 
 template<typename T> // Template functions HAVE to be in the header

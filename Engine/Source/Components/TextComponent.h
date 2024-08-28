@@ -15,7 +15,10 @@ private:
 	std::unique_ptr<Text> m_textObject;
 	bool m_textChanged = true;
 public:
+	TextComponent() = default;
+
 	CLASS_DECLARATION(TextComponent);
+	CLASS_PROTOTYPE(TextComponent)
 
 	void Initialize() override;
 	void Update(float dt) override;
@@ -24,4 +27,6 @@ public:
 	void SetText(const std::string& text);
 	void SetColor(const Color& color) { m_color = color; }
 	//void SetFont(const res_t<Font>& font) { m_textObject->SetFont(font); }
+
+	TextComponent(const TextComponent& other);
 };

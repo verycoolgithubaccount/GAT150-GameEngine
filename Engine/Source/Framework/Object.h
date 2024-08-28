@@ -19,6 +19,12 @@
 	};																\
 	static Register##classname register_instance;
 
+#define CLASS_PROTOTYPE(classname)					\
+	virtual std::unique_ptr<Object> Clone() const	\
+	{												\
+		return std::make_unique<classname>(*this);	\
+	}
+
 class Object : public Serializable
 {
 protected:
@@ -35,8 +41,10 @@ public:
 	virtual void Activate() { m_active = true; }
 	virtual void DeActivate() { m_active = false; }
 
+	virtual std::unique_ptr<Object> Clone() const = 0;
+
 	const std::string& GetName() const { return m_name; }
-	bool isActive() const { return m_active; }
+	bool IsActive() const { return m_active; }
 
 	void SetName(std::string name) { m_name = name; }
 };

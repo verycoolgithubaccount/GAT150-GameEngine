@@ -8,7 +8,6 @@ FACTORY_REGISTER(TextComponent)
 
 void TextComponent::Initialize()
 {
-	std::cout << m_fontSize;
 	if (!m_fontName.empty())
 	{
 		auto font = ResourceManager::Instance().Get<Font>(m_fontName, m_fontSize);
@@ -43,13 +42,25 @@ void TextComponent::SetText(const std::string& text)
 
 void TextComponent::Read(const json_t& value)
 {
-	READ_DATA_NAME(value, "text", m_text, true);
-	READ_DATA_NAME(value, "fontName", m_fontName, true);
-	READ_DATA_NAME(value, "fontSize", m_fontSize, true);
-	READ_DATA_NAME(value, "color", m_color, true);
+	READ_DATA_NAME_REQUIRED(value, "text", m_text);
+	READ_DATA_NAME_REQUIRED(value, "fontName", m_fontName);
+	READ_DATA_NAME_REQUIRED(value, "fontSize", m_fontSize);
+	READ_DATA_NAME_REQUIRED(value, "color", m_color);
 }
 
 void TextComponent::Write(json_t& value)
 {
 	//
+}
+
+
+TextComponent::TextComponent(const TextComponent& other)
+{
+	m_text = other.m_text;
+	m_fontName = other.m_fontName;
+	m_fontSize = other.m_fontSize;
+	m_color = other.m_color;
+
+	m_textChanged = true;
+	m_textObject = std::make_unique<Text>(*other.m_textObject.get());
 }

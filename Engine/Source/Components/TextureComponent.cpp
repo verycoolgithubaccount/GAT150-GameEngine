@@ -13,6 +13,14 @@ void TextureComponent::Initialize()
 	{
 		m_texture = ResourceManager::Instance().Get<Texture>(m_textureName, m_owner->GetScene()->GetEngine()->GetRenderer());
 	}
+
+	if (m_texture && m_source.w == 0 && m_source.h == 0)
+	{
+		m_source.x = 0;
+		m_source.y = 0;
+		m_source.w = static_cast<int>(m_texture->GetSize().x);
+		m_source.h = static_cast<int>(m_texture->GetSize().y);
+	}
 }
 
 void TextureComponent::Update(float dt)
@@ -22,12 +30,13 @@ void TextureComponent::Update(float dt)
 
 void TextureComponent::Draw(Renderer& renderer)
 {
-	renderer.DrawTexture(m_texture, m_owner->GetTransform());
+	renderer.DrawTexture(m_texture, m_owner->GetTransform(), m_source, m_hflip );
 }
 
 void TextureComponent::Read(const json_t& value)
 {
-	Json::Read(value, "textureName", m_textureName, true);
+	READ_DATA_NAME_REQUIRED(value, "textureName", m_textureName);
+	READ_DATA_NAME(value, "source", m_source);
 }
 
 void TextureComponent::Write(json_t& value)

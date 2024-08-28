@@ -86,7 +86,7 @@ namespace Json
 		{
 			if (!array[i].IsNumber())
 			{
-				std::cerr << "Could not read Json value: " << key << std::endl;
+				std::cerr << "Could not read Json value for Color: " << key << ", expected a number" << std::endl;
 				return false;
 			}
 
@@ -112,12 +112,93 @@ namespace Json
 		{
 			if (!array[i].IsNumber())
 			{
-				std::cerr << "Could not read Json value: " << key << std::endl;
+				std::cerr << "Could not read Json value for Vector2: " << key << ", expected a number" << std::endl;
 				return false;
 			}
 
 			// get the data
 			data[i] = array[i].GetFloat();
+		}
+
+		return true;
+	}
+
+	bool Read(const json_t& value, const std::string& key, Rect& data, bool isRequired)
+	{
+		if (!value.HasMember(key.c_str()) || !value[key.c_str()].IsArray() || value[key.c_str()].Size() != 4)
+		{
+			if (isRequired) std::cerr << "Could not read Json Rect value: " << key << std::endl;
+			return false;
+		}
+
+		// get json array object
+		auto& array = value[key.c_str()];
+
+		for (rapidjson::SizeType i = 0; i < array.Size(); i++)
+		{
+			if (!array[i].IsNumber())
+			{
+				std::cerr << "Could not read Json value for Rect: " << key << ", expected a number" << std::endl;
+				return false;
+			}
+		}
+
+		// get array values
+		data.x = array[0].GetInt();
+		data.y = array[1].GetInt();
+		data.w = array[2].GetInt();
+		data.h = array[3].GetInt();
+
+		return true;
+	}
+
+	bool Read(const json_t& value, const std::string& key, std::vector<int>& data, bool isRequired)
+	{
+		if (!value.HasMember(key.c_str()) || !value[key.c_str()].IsArray())
+		{
+			if (isRequired) std::cerr << "Could not read Json Vector<Int> value: " << key << std::endl;
+			return false;
+		}
+
+		// get json array object
+		auto& array = value[key.c_str()];
+		// get array values
+		for (rapidjson::SizeType i = 0; i < array.Size(); i++)
+		{
+			if (!array[i].IsNumber())
+			{
+				std::cerr << "Could not read Json value for Vector<Int>: " << key << ", expected a number" << std::endl;
+				return false;
+			}
+
+			// get the data
+			data.push_back(array[i].GetInt());
+		}
+
+		return true;
+	}
+
+	bool Read(const json_t& value, const std::string& key, std::vector <std::string> & data, bool isRequired)
+	{
+		if (!value.HasMember(key.c_str()) || !value[key.c_str()].IsArray())
+		{
+			if (isRequired) std::cerr << "Could not read Json Vector<String> value: " << key << std::endl;
+			return false;
+		}
+
+		// get json array object
+		auto& array = value[key.c_str()];
+		// get array values
+		for (rapidjson::SizeType i = 0; i < array.Size(); i++)
+		{
+			if (!array[i].IsString())
+			{
+				std::cerr << "Could not read Json value for Vector<String>: " << key << ", expected a string" << std::endl;
+				return false;
+			}
+
+			// get the data
+			data.push_back(array[i].GetString());
 		}
 
 		return true;

@@ -1,4 +1,4 @@
-#include "Actor.h"
+  #include "Actor.h"
 #include "../Engine.h"
 #include "Core/Factory.h"
 #include "Components/RenderComponent.h"
@@ -87,4 +87,19 @@ void Actor::Read(const json_t& value)
 void Actor::Write(json_t& value)
 {
 	//
+}
+
+Actor::Actor(const Actor& other)
+{
+	m_name = other.m_name;
+	m_tag = other.m_tag;
+	m_lifespan = other.m_lifespan;
+	m_transform = other.m_transform;
+	m_collisionCooldown = other.m_collisionCooldown;
+
+	for (auto& component : other.m_components)
+	{
+		auto cloneComponent = std::unique_ptr<Component>(dynamic_cast<Component*>(component->Clone().release()));
+		AddComponent(std::move(cloneComponent));
+	}
 }

@@ -30,6 +30,7 @@ public:
 	Actor(const Transform& transform) : m_transform{ transform } {}
 
 	CLASS_DECLARATION(Actor);
+	CLASS_PROTOTYPE(Actor)
 
 	void Initialize() override;
 
@@ -37,12 +38,14 @@ public:
 
 	void SetTransform(const Transform& transform) { m_transform = transform; }
 	void SetPosition(const Vector2& position) { m_transform.position = position; }
+	void SetRotation(float rotation) { m_transform.rotation = rotation; }
 
 	virtual void Update(float dt);
 	virtual void Draw(Renderer& renderer);
 
 	//void return type, passing in Actor*
 	std::function<void(Actor*)> OnCollisionEnter;
+	std::function<void(Actor*)> OnCollisionExit;
 
 	void AddComponent(std::unique_ptr<Component> component);
 
@@ -61,14 +64,17 @@ public:
 
 	//virtual void HitByRay(std::string rayTag) = 0;
 
-	const bool GetDestroyed() const { return m_destroyed; }
+	const bool IsDestroyed() const { return m_destroyed; }
 	void MakeDestroyed() { m_destroyed = true; }
 
 	Scene* GetScene() { return m_scene; }
+	void SetScene(Scene* scene) { m_scene = scene; }
 
 	friend class Scene;
 
 	void Rotate(float rotationAmount) { m_transform.rotation += rotationAmount; }
+
+	Actor(const Actor& other);
 };
 
 template<typename T>

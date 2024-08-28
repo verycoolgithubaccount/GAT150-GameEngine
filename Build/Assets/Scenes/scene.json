@@ -27,17 +27,14 @@
           "textureName": "Textures/ship_player.png"
         },
         {
-          "type": "EnginePhysicsComponent",
-          "velocity": [ 0, 0 ],
-          "damping": 0
+          "type": "Box2DPhysicsComponent",
+          "damping": 0,
+          "gravityScale": 0,
+          "size": [ 32, 32 ]
         },
         {
           "type": "PlayerComponent",
           "speed": 50
-        },
-        {
-          "type": "CircleCollisionComponent",
-          "radius": 24
         }
       ]
     },
@@ -54,8 +51,10 @@
           "textureName": "Textures/ship_enemy.png"
         },
         {
-          "type": "CircleCollisionComponent",
-          "radius": 24
+          "type": "Box2DPhysicsComponent",
+          "damping": 0,
+          "gravityScale": 0,
+          "size": [ 32, 32 ]
         }
       ]
     },
@@ -74,6 +73,28 @@
           "fontName": "Fonts/Avignon.ttf",
           "color": [ 0, 0.5, 0, 1 ],
           "fontSize": 24
+        }
+      ]
+    },
+    {
+      "name": "rocket",
+      "transform": {
+        "position": [ 400, 300 ],
+        "rotation": 0,
+        "scale": 1
+      },
+      "prototype": true,
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/ship_enemy.png"
+        },
+        {
+          "type": "Box2DPhysicsComponent",
+          "damping": 0,
+          "gravityScale": 0,
+          "size": [ 32, 16 ],
+          "isSensor": true
         }
       ]
     }

@@ -27,6 +27,7 @@
 #include "Math/Random.h"
 #include "Math/MathUtils.h"
 #include "Math/Transform.h"
+#include "Math/Rect.h"
 
 // ** framework **
 #include "Framework/Actor.h"
@@ -37,8 +38,12 @@
 #include "Resources/Resource.h"
 #include "Resources/ResourceManager.h"
 
+// ** event manager **
+#include "Event/EventManager.h"
+
 // ** components **
 #include "Components/TextureComponent.h"
+#include "Components/TextureAnimationComponent.h"
 #include "Components/EnginePhysicsComponent.h"
 #include "Components/TextComponent.h"
 

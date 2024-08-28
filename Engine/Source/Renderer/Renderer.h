@@ -1,5 +1,6 @@
 #pragma once
-#include "../Math/Vector2.h"
+#include "Math/Vector2.h"
+#include "Math/Rect.h"
 #include <SDL_image.h>
 #include <iostream>
 #include <SDL.h>
@@ -42,6 +43,7 @@ public:
 	// weak_ptr doesn't own the pointer and doesn't bump up the reference count, it has to be converted to shared_ptr to access the object
 	void DrawTexture(std::weak_ptr<Texture> texture, float x, float y, float angle = 0.0f);  
 	void DrawTexture(std::weak_ptr<Texture> texture, const Transform& transform, bool hflip = false);
+	void DrawTexture(std::weak_ptr<Texture> texture, const Transform& transform, const Rect& source, bool hflip = false);
 
 	int GetWidth() const { return m_width; }
 	int GetHeight() const { return m_height; }

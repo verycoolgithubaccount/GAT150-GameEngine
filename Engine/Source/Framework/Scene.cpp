@@ -24,9 +24,10 @@ void Scene::Update(float dt, Renderer& renderer, Audio& audio)
 	
 	for (auto& actor : actors)
 	{
-		if (actor->isActive()) actor->Update(dt);
+		if (actor->IsActive()) actor->Update(dt);
 	}
 
+	/*
 	for (auto& actor1 : actors)
 	{
 		CollisionComponent* collision1 = actor1->GetComponent<CollisionComponent>();
@@ -47,6 +48,7 @@ void Scene::Update(float dt, Renderer& renderer, Audio& audio)
 			}
 		}
 	}
+	*/
 
 	m_musicTimer -= dt;
 	if (m_musicTimer <= 0) {
@@ -90,13 +92,15 @@ void Scene::Draw(Renderer& renderer)
 
 	for (auto& actor : actors)
 	{
-		if (actor->isActive()) actor->Draw(renderer);
+		if (actor->IsActive()) actor->Draw(renderer);
 	}
 }
 
-void Scene::AddActor(std::unique_ptr<Actor> actor)
+void Scene::AddActor(std::unique_ptr<Actor> actor, bool initialize)
 {
-	actor->m_scene = this;
+	actor->SetScene(this);
+	if (initialize) actor->Initialize();
+
 	actors.push_back(std::move(actor)); //std::move is to delete the original unique_ptr and use it in the list instead
 }
 
@@ -121,80 +125,6 @@ void Scene::AddStars(Renderer& renderer)
 	}
 }
 
-const Vector2 Scene::GetNearestEnemyPosition(Vector2 position)
-{
-	float distance = HUGE_VAL;
-	for (auto& actor : actors)
-	{
-		if (actor->GetTag() == "Enemy" && distance > position.Distance(actor->GetTransform().position)) distance = position.Distance(actor->GetTransform().position);
-	}
-
-	if (distance == HUGE_VAL) return Vector2{ (float)HUGE_VAL, (float)HUGE_VAL };
-
-	for (auto& actor : actors)
-	{
-		if (actor->GetTag() == "Enemy" && distance == position.Distance(actor->GetTransform().position)) return actor->GetTransform().position;
-	}
-	return Vector2{ (float)HUGE_VAL, (float)HUGE_VAL };
-}
-
-/*
-const Vector2 Scene::GetNearestEnemyVelocity(Vector2 position)
-{
-	float distance = HUGE_VAL;
-	for (auto& actor : m_actors)
-	{
-		if (actor->GetTag() == "Enemy" && distance > position.Distance(actor->GetTransform().position)) distance = position.Distance(actor->GetTransform().position);
-	}
-
-	if (distance == HUGE_VAL) return Vector2{ (float)HUGE_VAL, (float)HUGE_VAL };
-
-	for (auto& actor : m_actors)
-	{
-		if (actor->GetTag() == "Enemy" && distance == position.Distance(actor->GetTransform().position)) return actor->GetVelocity();
-	}
-	return Vector2{ (float)HUGE_VAL, (float)HUGE_VAL };
-}
-*/
-
-const Vector2 Scene::GetNearestAlliedPosition(Vector2 position)
-{
-	float distance = HUGE_VAL;
-	for (auto& actor : actors)
-	{
-		if ((actor->GetTag() == "Player" || actor->GetTag() == "Ally") && distance > position.Distance(actor->GetTransform().position)) distance = position.Distance(actor->GetTransform().position);
-	}
-
-	if (distance == HUGE_VAL) return Vector2{ (float)HUGE_VAL, (float)HUGE_VAL };
-
-	for (auto& actor : actors)
-	{
-		if ((actor->GetTag() == "Player" || actor->GetTag() == "Ally") && distance == position.Distance(actor->GetTransform().position)) return actor->GetTransform().position;
-	}
-	return Vector2{ (float)HUGE_VAL, (float)HUGE_VAL };
-}
-
-
-/*
-const Vector2 Scene::GetNearestAlliedVelocity(Vector2 position)
-{
-	float distance = HUGE_VAL;
-	for (auto& actor : m_actors)
-	{
-		if ((actor->GetTag() == "Player" || actor->GetTag() == "Ally") && distance > position.Distance(actor->GetTransform().position)) distance = position.Distance(actor->GetTransform().position);
-	}
-
-	if (distance == HUGE_VAL) return Vector2{ (float)HUGE_VAL, (float)HUGE_VAL };
-
-	for (auto& actor : m_actors)
-	{
-		if ((actor->GetTag() == "Player" || actor->GetTag() == "Ally") && distance == position.Distance(actor->GetTransform().position)) return actor->GetVelocity();
-	}
-	return Vector2{ (float)HUGE_VAL, (float)HUGE_VAL };
-}
-*/
-
-
 void Scene::Read(const json_t& value)
 {
 	if (HAS_DATA(value, actors) && GET_DATA(value, actors).IsArray())
@@ -204,7 +134,15 @@ void Scene::Read(const json_t& value)
 			auto actor = Factory::Instance().Create<Actor>(Actor::GetTypeName());
 			actor->Read(actorValue);
 
-			AddActor(std::move(actor));
+			bool prototype = false;
+			if (READ_DATA(actorValue, prototype))
+			{
+				std::string name = actor->m_name;
+				Factory::Instance().RegisterPrototype(name, std::move(actor));
+			}
+			else {
+				AddActor(std::move(actor), false);
+			}
 		}
 	}
 }
