@@ -19,7 +19,7 @@ void TextComponent::Update(float dt)
 {
 }
 
-void TextComponent::Draw(Renderer& renderer)
+void TextComponent::Draw(Renderer& renderer, const Vector2& modifier)
 {
 	// update text if text has changed
 	if (m_textChanged)
@@ -28,7 +28,7 @@ void TextComponent::Draw(Renderer& renderer)
 		m_textChanged = false;
 	}
 
-	renderer.DrawTexture(m_textObject->GetTexture(), m_owner->GetTransform());
+	renderer.DrawTexture(m_textObject->GetTexture(), m_owner->GetTransform(), false, modifier);
 }
 
 void TextComponent::SetText(const std::string& text)
@@ -42,6 +42,7 @@ void TextComponent::SetText(const std::string& text)
 
 void TextComponent::Read(const json_t& value)
 {
+	Component::Read(value);
 	READ_DATA_NAME_REQUIRED(value, "text", m_text);
 	READ_DATA_NAME_REQUIRED(value, "fontName", m_fontName);
 	READ_DATA_NAME_REQUIRED(value, "fontSize", m_fontSize);

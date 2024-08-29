@@ -34,9 +34,9 @@ bool Text::Create(Renderer& renderer, const std::string& text, const Color& colo
 	return true;
 }
 
-void Text::Draw(Renderer& renderer, float x, float y, float angle)
+void Text::Draw(Renderer& renderer, float x, float y, float angle, const Vector2& modifier)
 {
 	assert(m_texture);
 
-	renderer.DrawTexture(m_texture, x, y, angle);
+	renderer.DrawTexture(m_texture, x + modifier.x, y + modifier.y, angle);
 }

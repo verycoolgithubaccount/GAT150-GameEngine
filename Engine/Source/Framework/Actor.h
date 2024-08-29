@@ -20,6 +20,7 @@ protected:
 	float m_lifespan = 0;
 	float m_collisionCooldown = 0;
 
+	Vector2 m_initialVelocity{ 0, 0 };
 	Transform m_transform{ {0,0}, 0.0f, 0.0f };
 
 	Scene* m_scene{ nullptr };
@@ -40,8 +41,11 @@ public:
 	void SetPosition(const Vector2& position) { m_transform.position = position; }
 	void SetRotation(float rotation) { m_transform.rotation = rotation; }
 
+	void SetInitialVelocity(const Vector2 initialVelocity) { m_initialVelocity = initialVelocity; }
+	const Vector2& GetInitialVelocity() { return m_initialVelocity; }
+
 	virtual void Update(float dt);
-	virtual void Draw(Renderer& renderer);
+	virtual void Draw(Renderer& renderer, const Vector2& modifier = Vector2{ 0, 0 });
 
 	//void return type, passing in Actor*
 	std::function<void(Actor*)> OnCollisionEnter;
@@ -49,8 +53,13 @@ public:
 
 	void AddComponent(std::unique_ptr<Component> component);
 
+	bool HasComponent(std::string componentName);
+
 	template<typename T>
 	T* GetComponent();
+
+	template<typename T>
+	T* GetComponent(const std::string& name);
 
 	template<typename T>
 	std::vector<T*> GetComponents();
@@ -84,6 +93,20 @@ inline T* Actor::GetComponent()
 	{
 		T* result = dynamic_cast<T*>(component.get()); // Cast to type T if possible
 		if (result) return result;
+
+		// Basically, what this does is when this function is called you need to specify the type you're looking for in <>,
+		// and it searches through m_actors until it finds something of that type and returns it
+	}
+	return nullptr;
+}
+
+template<typename T>
+inline T* Actor::GetComponent(const std::string& name)
+{
+	for (auto& component : m_components)
+	{
+		T* result = dynamic_cast<T*>(component.get()); // Cast to type T if possible
+		if (result && IsEqualIgnoreCase(name, result->GetName())) return result;
 
 		// Basically, what this does is when this function is called you need to specify the type you're looking for in <>,
 		// and it searches through m_actors until it finds something of that type and returns it

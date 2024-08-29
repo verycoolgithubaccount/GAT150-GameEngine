@@ -180,6 +180,7 @@
     <ClInclude Include="Source\Audio\AudioSource.h" />
     <ClInclude Include="Source\Components\AudioComponent.h" />
     <ClInclude Include="Source\Components\Box2DPhysicsComponent.h" />
+    <ClInclude Include="Source\Components\CameraComponent.h" />
     <ClInclude Include="Source\Components\CircleCollisionComponent.h" />
     <ClInclude Include="Source\Components\CollisionComponent.h" />
     <ClInclude Include="Source\Components\Component.h" />
@@ -231,7 +232,9 @@
     <ClCompile Include="Source\Audio\AudioSource.cpp" />
     <ClCompile Include="Source\Components\AudioComponent.cpp" />
     <ClCompile Include="Source\Components\Box2DPhysicsComponent.cpp" />
+    <ClCompile Include="Source\Components\CameraComponent.cpp" />
     <ClCompile Include="Source\Components\CircleCollisionComponent.cpp" />
+    <ClCompile Include="Source\Components\Component.cpp" />
     <ClCompile Include="Source\Components\EnginePhysicsComponent.cpp" />
     <ClCompile Include="Source\Components\PhysicsComponent.cpp" />
     <ClCompile Include="Source\Components\TextComponent.cpp" />

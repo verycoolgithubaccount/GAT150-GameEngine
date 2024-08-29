@@ -1,0 +1,167 @@
+{
+  "actors": [
+    {
+      "type": "Actor",
+      "name": "column",
+      "tag": "ground",
+      "prototype": true,
+      "transform": {
+        "scale": 8
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "textures/station_tileset.png",
+          "source": [
+            0,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "type": "Box2DPhysicsComponent",
+          "isDynamic": false,
+          "isSensor": true
+        }
+      ]
+    },
+    {
+      "type": "Actor",
+      "name": "floor",
+      "tag": "ground",
+      "prototype": true,
+      "transform": {
+        "scale": 8
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "textures/station_tileset.png",
+          "source": [
+            8,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "type": "Box2DPhysicsComponent",
+          "isDynamic": false
+        }
+      ]
+    },
+    {
+      "type": "Actor",
+      "name": "main",
+      "tag": "ground",
+      "prototype": true,
+      "transform": {
+        "scale": 8
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "textures/station_tileset.png",
+          "source": [
+            16,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "type": "Box2DPhysicsComponent",
+          "isDynamic": false
+        }
+      ]
+    },
+    {
+      "type": "Actor",
+      "name": "tower",
+      "tag": "ground",
+      "prototype": true,
+      "transform": {
+        "scale": 8
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "textures/station_tileset.png",
+          "source": [
+            16,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "type": "Box2DPhysicsComponent",
+          "isDynamic": false
+        }
+      ]
+    },
+    {
+      "type": "Actor",
+      "name": "light",
+      "tag": "ground",
+      "prototype": true,
+      "transform": {
+        "scale": 8
+      },
+      "components": [
+        {
+          "type": "TextureAnimationComponent",
+          "animationName": "blink",
+          "animations": [
+            {
+              "name": "blink",
+              "fps": 1,
+              "numColumns": 2,
+              "numRows": 1,
+              "startFrame": 1,
+              "endFrame": 2,
+              "textureName": "Textures/station_light.png"
+            }
+          ]
+        },
+        {
+          "type": "Box2DPhysicsComponent",
+          "isDynamic": false,
+          "isSensor": true
+        }
+      ]
+    },
+    {
+      "type": "Actor",
+      "name": "World",
+      "transform": {
+        "position": [
+          32,
+          32
+        ]
+      },
+      "components": [
+        {
+          "type": "TilemapComponent",
+          "numColumns": 13,
+          "numRows": 10,
+          "tileSize": [ 64, 64 ],
+          "tileNames": [ "", "column", "floor", "main", "tower", "light" ],
+          "tiles": [
+            5, 5, 0, 4, 0, 4, 0, 4, 0, 4, 0, 5, 5,
+            3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+            3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+            0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0,
+            0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0,
+            0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0,
+            2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+            3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+            0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0,
+            0, 0, 0, 0, 3, 3, 3, 3, 3, 0, 0, 0, 0
+          ]
+        }
+      ]
+    }
+  ]
+}

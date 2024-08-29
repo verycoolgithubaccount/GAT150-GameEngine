@@ -16,7 +16,7 @@ void TilemapComponent::Initialize()
 
 		if (tile)
 		{
-			int x = i & m_numColumns;
+			int x = i % m_numColumns;
 			int y = i / m_numColumns;
 
 			tile->SetPosition(m_owner->GetTransform().position + (Vector2{ x, y } * m_tileSize));
@@ -32,6 +32,7 @@ void TilemapComponent::Update(float dt)
 
 void TilemapComponent::Read(const json_t& value)
 {
+	Component::Read(value);
 	READ_DATA_NAME(value, "numColumns", m_numColumns);
 	READ_DATA_NAME(value, "numRows", m_numRows);
 	READ_DATA_NAME(value, "tileSize", m_tileSize);

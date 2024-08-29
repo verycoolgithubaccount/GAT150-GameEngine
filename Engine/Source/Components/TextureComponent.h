@@ -15,7 +15,7 @@ public:
 
 	void Initialize() override;
 	void Update(float dt) override;
-	void Draw(Renderer& renderer) override;
+	void Draw(Renderer& renderer, const Vector2& modifier = { 0, 0 }) override;
 
 	res_t<Texture> GetTexture() { return m_texture; }
 	void SetTexture(res_t<Texture> texture) { m_texture = texture; }

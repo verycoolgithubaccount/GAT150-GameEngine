@@ -192,6 +192,9 @@
     <ClInclude Include="Source\Components\AudioComponent.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Components\CameraComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\EAssert.cpp">
@@ -294,6 +297,12 @@
       <Filter>Source\Audio</Filter>
     </ClCompile>
     <ClCompile Include="Source\Components\AudioComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\CameraComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Component.cpp">
       <Filter>Source\Components</Filter>
     </ClCompile>
   </ItemGroup>

@@ -34,14 +34,14 @@ void Actor::Update(float dt)
 	}
 }
 
-void Actor::Draw(Renderer& renderer)
+void Actor::Draw(Renderer& renderer, const Vector2& modifier)
 {
 	if (m_destroyed) return;
 
 	for (auto& component : m_components)
 	{
 		RenderComponent* renderComponent = dynamic_cast<RenderComponent*>(component.get());
-		if (renderComponent) renderComponent->Draw(renderer);
+		if (renderComponent) renderComponent->Draw(renderer, modifier);
 	}
 }
 
@@ -51,6 +51,15 @@ void Actor::AddComponent(std::unique_ptr<Component> component)
 	m_components.push_back(std::move(component));
 }
 
+bool Actor::HasComponent(std::string componentName)
+{
+	for (auto& component : m_components)
+	{
+		if (IsEqualIgnoreCase(component->GetComponentType(), componentName)) return true;
+	}
+	return false;
+}
+
 void Actor::Read(const json_t& value)
 {
 	Object::Read(value);
@@ -58,6 +67,7 @@ void Actor::Read(const json_t& value)
 	Json::Read(value, "tag", m_tag);
 	Json::Read(value, "lifespan", m_lifespan);
 
+	READ_DATA_NAME(value, "initialVelocity", m_initialVelocity);
 	// read transform
 	if (HAS_DATA(value, transform)) m_transform.Read(GET_DATA(value, transform));
 
@@ -96,6 +106,7 @@ Actor::Actor(const Actor& other)
 	m_lifespan = other.m_lifespan;
 	m_transform = other.m_transform;
 	m_collisionCooldown = other.m_collisionCooldown;
+	m_initialVelocity = other.m_initialVelocity;
 
 	for (auto& component : other.m_components)
 	{

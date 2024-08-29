@@ -62,6 +62,9 @@
           "speed": 200
         },
         {
+          "type":  "CameraComponent"
+        },
+        {
           "type": "AudioComponent",
           "soundName": "Sounds/laser.wav",
           "playOnStart": true,

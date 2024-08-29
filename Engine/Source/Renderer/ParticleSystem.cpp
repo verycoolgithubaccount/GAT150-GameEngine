@@ -8,11 +8,11 @@ void ParticleSystem::Update(float dt, Renderer& renderer)
 	}
 }
 
-void ParticleSystem::Draw(Renderer& renderer)
+void ParticleSystem::Draw(Renderer& renderer, const Vector2& modifier)
 {
 	for (auto& particle : m_particles)
 	{
-		if (particle.isActive) particle.Draw(renderer);
+		if (particle.isActive) particle.Draw(renderer, modifier);
 	}
 }
 

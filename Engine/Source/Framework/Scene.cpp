@@ -2,6 +2,7 @@
 #include "Engine.h"
 #include "Core/Factory.h"
 #include "Components/CollisionComponent.h"
+#include "Components/CameraComponent.h"
 #include <algorithm>
 
 void Scene::Initialize()
@@ -9,11 +10,14 @@ void Scene::Initialize()
 	for (auto& actor : actors)
 	{
 		actor->Initialize();
+		if (actor->GetComponent<CameraComponent>()) m_camera = actor.get();
 	}
 }
 
 void Scene::Update(float dt, Renderer& renderer, Audio& audio)
 {
+	if (m_stars.empty()) AddStars(renderer);
+
 	for (Particle& star : m_stars)
 	{
 		star.Update(dt, renderer);
@@ -27,38 +31,38 @@ void Scene::Update(float dt, Renderer& renderer, Audio& audio)
 		if (actor->IsActive()) actor->Update(dt);
 	}
 
-	/*
-	for (auto& actor1 : actors)
-	{
-		CollisionComponent* collision1 = actor1->GetComponent<CollisionComponent>();
-		if (!collision1) continue;
+	if (m_camera != nullptr && !m_camera->IsDestroyed() && m_camera->IsActive()) renderer.SetCameraOffset(Vector2{ renderer.GetWidth()/2, renderer.GetHeight()/2 } - m_camera->GetTransform().position);
 
-		for (auto& actor2 : actors)
-		{
-			if (actor1 == actor2) continue;
-
-			CollisionComponent* collision2 = actor2->GetComponent<CollisionComponent>();
-			if (!collision2) continue;
-
-			if (collision1->CheckCollision(collision2))
-			{
-				// If the function exists, call that function
-				if (actor1->OnCollisionEnter) actor1->OnCollisionEnter(actor2.get());
-				if (actor2->OnCollisionEnter) actor2->OnCollisionEnter(actor1.get());
-			}
-		}
-	}
-	*/
-
-	m_musicTimer -= dt;
-	if (m_musicTimer <= 0) {
-	//	audio.PlaySound("music.wav");
-		m_musicTimer = 275;
-	}
 
 	// destroy
 	// Starting at begin until end, remove_if iterates through and adds actor to an array if it's destroyed, then erase deletes it
 	std::erase_if(actors, [](auto& actor) { return actor->m_destroyed; }); // Same as above^
+}
+
+Actor* Scene::GetNearestActorWithComponent(const std::vector<std::string>& componentNames, const Vector2& checkingPosition)
+{
+	std::vector<Actor*> fittingActors;
+	for (auto& actor : actors)
+	{
+		for (auto& componentName : componentNames)
+		{
+			if (actor->HasComponent(componentName))
+			{
+				fittingActors.push_back(actor.get());
+				break;
+			}
+		}
+	}
+
+	if (fittingActors.empty()) return nullptr;
+
+	int currentClosest = 0;
+	for (int i = 1; i < fittingActors.size(); i++)
+	{
+		if (checkingPosition.Distance(fittingActors[currentClosest]->GetTransform().position) > checkingPosition.Distance(fittingActors[i]->GetTransform().position)) currentClosest = i;
+	}
+
+	return fittingActors[currentClosest];
 }
 
 bool Scene::CheckHitByRay(Vector2 originPosition, Vector2 position, std::string rayTag)
@@ -80,19 +84,25 @@ void Scene::Draw(Renderer& renderer)
 {
 	for (Particle& star : m_stars)
 	{
-		bool canDraw = true;
-		for (auto& actor : actors)
+		if (m_camera && m_camera->GetComponent<PhysicsComponent>())
 		{
-			if (actor->GetTransform().position.Distance(star.position) < (8 * actor->GetTransform().scale)) {
-				canDraw = false;
-			}
+			star.velocity = (m_camera->GetComponent<PhysicsComponent>()->GetVelocity() / -10.0f) * (star.size / 0.5f);
 		}
-		if (canDraw) star.Draw(renderer);
+
+		star.Draw(renderer);
 	}
 
 	for (auto& actor : actors)
 	{
-		if (actor->IsActive()) actor->Draw(renderer);
+		// Check that the actor is in bounds before drawing
+		if (actor->IsActive() &&
+			(actor->GetTransform().position + renderer.GetCameraOffset()).x < (renderer.GetWidth() * 1.3) &&
+			(actor->GetTransform().position + renderer.GetCameraOffset()).x > 0 - (renderer.GetWidth() * 0.3) &&
+			(actor->GetTransform().position + renderer.GetCameraOffset()).y < (renderer.GetHeight() * 1.3) &&
+			(actor->GetTransform().position + renderer.GetCameraOffset()).y > 0 - (renderer.GetHeight() * 0.3))
+		{
+			actor->Draw(renderer, renderer.GetCameraOffset());
+		}
 	}
 }
 

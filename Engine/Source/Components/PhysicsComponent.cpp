@@ -2,6 +2,7 @@
 
 void PhysicsComponent::Read(const json_t& value)
 {
+	Component::Read(value);
 	READ_DATA_NAME(value, "velocity", m_velocity);
 	READ_DATA_NAME(value, "acceleration", m_acceleration);
 	READ_DATA_NAME(value, "mass", m_mass);

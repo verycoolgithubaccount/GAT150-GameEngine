@@ -13,7 +13,7 @@ public:
 	}
 
 	void Update(float dt, Renderer& renderer);
-	void Draw(Renderer& renderer);
+	void Draw(Renderer& renderer, const Vector2& modifier = { 0, 0 });
 
 	void AddParticle(const Particle::Data& data);
 private:

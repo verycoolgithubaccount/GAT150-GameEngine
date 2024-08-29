@@ -36,7 +36,6 @@ struct Vector2
 	Vector2& operator *= (float s) { x *= s; y *= s; return *this; }
 	Vector2& operator /= (float s) { x /= s; y /= s; return *this; }
 
-	// I had to look up how to do this
 	friend std::ostream& operator << (std::ostream& output, const Vector2& v)
 	{
 		output << "(" << v.x << ", " << v.y << ")";

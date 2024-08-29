@@ -29,6 +29,7 @@ void AudioComponent::Initialize()
 }
 void AudioComponent::Update(float dt)
 {
+	if (m_owner->IsDestroyed()) Stop();
 	if (m_playOnStart)
 	{
 		m_playOnStart = false;
@@ -67,6 +68,7 @@ void AudioComponent::SetPitch(float pitch)
 }
 void AudioComponent::Read(const json_t& value)
 {
+	Component::Read(value);
 	READ_DATA_NAME(value, "playOnStart", m_playOnStart);
 	READ_DATA_NAME(value, "loop", m_loop);
 	READ_DATA_NAME(value, "volume", m_volume);

@@ -17,8 +17,8 @@ public:
 		m_color{ color }
 	{}
 
-	void Draw(Renderer& renderer, const Vector2& position, float angle, float scale);
-	void Draw(Renderer& renderer, const Transform& transform);
+	void Draw(Renderer& renderer, const Vector2& position, float angle, float scale, const Vector2& modifier = { 0, 0 });
+	void Draw(Renderer& renderer, const Transform& transform, const Vector2& modifier = { 0, 0 });
 
 	float GetRadius(float scale);
 };

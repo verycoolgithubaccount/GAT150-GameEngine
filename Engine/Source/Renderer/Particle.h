@@ -42,6 +42,6 @@ struct Particle
 	void Initialize(const Data& data);
 
 	void Update(float dt, Renderer& renderer); // delta time - time elapsed since last frame
-	void Draw(Renderer& renderer);
+	void Draw(Renderer& renderer, const Vector2& modifier = { 0, 0 });
 	void SetColor(Color new_color) { color[0] = Color::ToInt(new_color.r), color[1] = Color::ToInt(new_color.g), color[2] = Color::ToInt(new_color.b), color[3] = Color::ToInt(new_color.a); }
 };

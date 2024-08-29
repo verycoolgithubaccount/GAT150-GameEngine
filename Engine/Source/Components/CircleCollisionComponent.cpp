@@ -25,6 +25,7 @@ bool CircleCollisionComponent::CheckCollision(const CollisionComponent* collisio
 
 void CircleCollisionComponent::Read(const json_t& value)
 {
+	Component::Read(value);
     READ_DATA_NAME(value, "radius", m_radius);
 }
 

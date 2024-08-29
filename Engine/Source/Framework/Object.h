@@ -47,4 +47,5 @@ public:
 	bool IsActive() const { return m_active; }
 
 	void SetName(std::string name) { m_name = name; }
+	const std::string& GetName() { return m_name; }
 };

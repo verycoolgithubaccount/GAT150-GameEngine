@@ -54,6 +54,7 @@ void Box2DPhysicsComponent::SetVelocity(const Vector2& velocity)
 
 void Box2DPhysicsComponent::Read(const json_t& value)
 {
+	Component::Read(value);
 	READ_DATA_NAME(value, "gravityScale", rigidBodyDef.gravityScale);
 	READ_DATA_NAME(value, "damping", rigidBodyDef.damping);
 	READ_DATA_NAME(value, "angularDamping", rigidBodyDef.angularDamping);

@@ -22,7 +22,7 @@ public:
 
 	void Initialize() override;
 	void Update(float dt) override;
-	void Draw(Renderer& renderer) override;
+	void Draw(Renderer& renderer, const Vector2& modifier = { 0, 0 }) override;
 
 	void SetText(const std::string& text);
 	void SetColor(const Color& color) { m_color = color; }

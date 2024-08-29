@@ -3,6 +3,7 @@
 #include "Renderer/Particle.h"
 #include "Actor.h"
 #include "Math/Vector2.h"
+#include "Components/PhysicsComponent.h"
 #include <list>
 #include <vector>
 #include <memory>
@@ -23,6 +24,8 @@ protected:
 	float m_musicTimer = 0;
 
 	Engine* m_engine{ nullptr };
+
+	Actor* m_camera{ nullptr };
 public:
 	CLASS_DECLARATION(Scene);
 	CLASS_PROTOTYPE(Scene)
@@ -41,6 +44,10 @@ public:
 
 	template<typename T> T* GetActor();
 	template<typename T> T* GetActor(const std::string& name);
+
+	Actor* GetNearestActorWithComponent(const std::vector<std::string>& componentNames, const Vector2& position);
+	const Vector2& GetCameraPosition() { return m_camera->GetTransform().position; }
+	const Vector2& GetCameraVelocity() { return m_camera->GetComponent<PhysicsComponent>()->GetVelocity(); }
 
 	bool CheckHitByRay(Vector2 originPosition, Vector2 position, std::string rayTag);
 

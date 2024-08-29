@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
 			engine->GetRenderer().SetColor(0, 0, 0, 0);
 			engine->GetRenderer().BeginFrame();
 
-			engine->GetParticleSystem().Draw(engine->GetRenderer());
+			engine->GetParticleSystem().Draw(engine->GetRenderer(), engine->GetRenderer().GetCameraOffset());
 			game->Draw(engine->GetRenderer());
 
 			engine->GetRenderer().EndFrame();

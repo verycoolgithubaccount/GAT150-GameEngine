@@ -28,13 +28,14 @@ void TextureComponent::Update(float dt)
 	//
 }
 
-void TextureComponent::Draw(Renderer& renderer)
+void TextureComponent::Draw(Renderer& renderer, const Vector2& modifier)
 {
-	renderer.DrawTexture(m_texture, m_owner->GetTransform(), m_source, m_hflip );
+	renderer.DrawTexture(m_texture, m_owner->GetTransform(), m_source, m_hflip, modifier);
 }
 
 void TextureComponent::Read(const json_t& value)
 {
+	Component::Read(value);
 	READ_DATA_NAME_REQUIRED(value, "textureName", m_textureName);
 	READ_DATA_NAME(value, "source", m_source);
 }

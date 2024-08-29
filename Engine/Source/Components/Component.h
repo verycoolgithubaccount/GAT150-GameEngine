@@ -4,10 +4,11 @@
 class Component : public Object
 {
 protected:
-	
+	std::string m_componentType;
 public:
 	virtual void Update(float dt) = 0;
 	class Actor* m_owner{ nullptr };
-	//Actor* GetOwner() { return m_owner; }
-	//void SetOwner(Actor* owner) { m_owner = owner; }
+
+	void Read(const json_t& value);
+	const std::string& GetComponentType() { return m_componentType; }
 };

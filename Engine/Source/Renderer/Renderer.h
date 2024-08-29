@@ -18,6 +18,8 @@ private:
 
 	int m_width{ 0 };
 	int m_height{ 0 };
+
+	Vector2 m_cameraOffset{ 0, 0 };
 public:
 	Renderer() = default; // Default constructor, can also do Renderer() {}
 	bool Initialize();
@@ -41,12 +43,15 @@ public:
 	void DrawRect(float x, float y, float w, float h);
 
 	// weak_ptr doesn't own the pointer and doesn't bump up the reference count, it has to be converted to shared_ptr to access the object
-	void DrawTexture(std::weak_ptr<Texture> texture, float x, float y, float angle = 0.0f);  
-	void DrawTexture(std::weak_ptr<Texture> texture, const Transform& transform, bool hflip = false);
-	void DrawTexture(std::weak_ptr<Texture> texture, const Transform& transform, const Rect& source, bool hflip = false);
+	void DrawTexture(std::weak_ptr<Texture> texture, float x, float y, float angle = 0.0f, const Vector2& modifier = { 0, 0 });
+	void DrawTexture(std::weak_ptr<Texture> texture, const Transform& transform, bool hflip = false, const Vector2& modifier = { 0, 0 });
+	void DrawTexture(std::weak_ptr<Texture> texture, const Transform& transform, const Rect& source, bool hflip = false, const Vector2& modifier = { 0, 0 });
 
 	int GetWidth() const { return m_width; }
 	int GetHeight() const { return m_height; }
+
+	void SetCameraOffset(const Vector2& offset) { m_cameraOffset = offset; }
+	const Vector2& GetCameraOffset() { return m_cameraOffset; }
 
 	friend class Text;
 	friend class Texture;

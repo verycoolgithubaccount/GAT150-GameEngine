@@ -5,7 +5,19 @@
 
 class SpaceGame : public Game, Observer
 {
+public:
+	enum class State : char
+	{
+		TITLE,
+		START_GAME,
+		START_LEVEL,
+		GAME,
+		PLAYER_DEAD,
+		GAME_OVER
+	};
 private:
+	State m_state{ State::GAME };
+	float m_spawnTimer = 5;
 	std::unique_ptr<Scene> m_scene;
 public:
 	SpaceGame(Engine* engine) : Game{engine} {}

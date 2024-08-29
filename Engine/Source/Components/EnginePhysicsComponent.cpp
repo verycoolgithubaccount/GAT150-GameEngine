@@ -34,6 +34,7 @@ void EnginePhysicsComponent::SetPosition(const Vector2& position)
 
 void EnginePhysicsComponent::Read(const json_t& value)
 {
+	Component::Read(value);
 	PhysicsComponent::Read(value);
 }
 

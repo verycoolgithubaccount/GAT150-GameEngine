@@ -122,13 +122,13 @@ void Renderer::DrawRect(float x, float y, float w, float h)
 	SDL_RenderFillRectF(m_renderer, &rect);
 }
 
-void Renderer::DrawTexture(std::weak_ptr<Texture> texture, float x, float y, float angle)
+void Renderer::DrawTexture(std::weak_ptr<Texture> texture, float x, float y, float angle, const Vector2& modifier)
 {
 	Vector2 size = texture.lock()->GetSize(); // .lock() gets the shared_ptr from the weak_ptr
 
 	SDL_FRect destRect;
-	destRect.x = x;
-	destRect.y = y;
+	destRect.x = x + modifier.x;
+	destRect.y = y + modifier.y;
 	destRect.w = size.x;
 	destRect.h = size.y;
 
@@ -136,13 +136,13 @@ void Renderer::DrawTexture(std::weak_ptr<Texture> texture, float x, float y, flo
 	SDL_RenderCopyExF(m_renderer, texture.lock()->m_texture, NULL, &destRect, angle, NULL, SDL_FLIP_NONE);
 }
 
-void Renderer::DrawTexture(std::weak_ptr<Texture> texture, const Transform& transform, bool hflip)
+void Renderer::DrawTexture(std::weak_ptr<Texture> texture, const Transform& transform, bool hflip, const Vector2& modifier)
 {
 	Vector2 size = texture.lock()->GetSize() * transform.scale;
 
 	SDL_FRect destRect;
-	destRect.x = transform.position.x - size.x * 0.5f;
-	destRect.y = transform.position.y - size.x * 0.5f;
+	destRect.x = (transform.position.x - size.x * 0.5f) + modifier.x;
+	destRect.y = (transform.position.y - size.x * 0.5f) + modifier.y;
 	destRect.w = size.x;
 	destRect.h = size.y;
 
@@ -150,13 +150,13 @@ void Renderer::DrawTexture(std::weak_ptr<Texture> texture, const Transform& tran
 	SDL_RenderCopyExF(m_renderer, texture.lock()->m_texture, NULL, &destRect, transform.rotation, NULL, (hflip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
 }
 
-void Renderer::DrawTexture(std::weak_ptr<Texture> texture, const Transform& transform, const Rect& source, bool hflip)
+void Renderer::DrawTexture(std::weak_ptr<Texture> texture, const Transform& transform, const Rect& source, bool hflip, const Vector2& modifier)
 {
 	Vector2 size = Vector2{ source.w, source.h } *transform.scale;
 
 	SDL_FRect destRect;
-	destRect.x = transform.position.x - size.x * 0.5f;
-	destRect.y = transform.position.y - size.x * 0.5f;
+	destRect.x = (transform.position.x - size.x * 0.5f) + modifier.x;
+	destRect.y = (transform.position.y - size.x * 0.5f) + modifier.y;
 	destRect.w = size.x;
 	destRect.h = size.y;
 

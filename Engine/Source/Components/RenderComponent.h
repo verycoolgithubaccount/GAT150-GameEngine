@@ -4,5 +4,5 @@
 class RenderComponent : public Component
 {
 public:
-	virtual void Draw(class Renderer& renderer) = 0;
+	virtual void Draw(class Renderer& renderer, const Vector2& modifier = { 0, 0 }) = 0;
 };
