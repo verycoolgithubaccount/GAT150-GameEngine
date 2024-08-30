@@ -1,0 +1,48 @@
+{
+  "actors": [
+    {
+      "name": "health",
+      "tag": "gui",
+      "useCameraOffset": false,
+      "transform": {
+        "position": [ 300, 300 ],
+        "rotation": 0,
+        "scale": 8
+      },
+      "components": [
+        {
+          "type": "DisplayComponent",
+          "numColumns": 8,
+          "numRows": 1,
+          "tileSize": [ 64, 64 ],
+          "tileNames": [ "", "heart" ],
+          "tiles": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "TextureAnimationComponent",
+          "animationName": "on",
+          "animations": [
+            {
+              "name": "on",
+              "fps": 3,
+              "numColumns": 1,
+              "numRows": 1,
+              "startFrame": 1,
+              "endFrame": 1,
+              "textureName": "Textures/full_hearts.png"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

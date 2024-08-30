@@ -84,6 +84,28 @@
       ]
     },
     {
+      "name": "asteroid",
+      "tag": "asteroid",
+      "prototype": true,
+      "transform": {
+        "position": [ 200, 200 ],
+        "rotation": 90,
+        "scale": 7
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/asteroid.png"
+        },
+        {
+          "type": "Box2DPhysicsComponent",
+          "damping": 0,
+          "gravityScale": 0,
+          "size": [ 25, 25 ]
+        }
+      ]
+    },
+    {
       "name": "text",
       "active": false,
       "transform": {
@@ -107,20 +129,20 @@
       "transform": {
         "position": [ 400, 300 ],
         "rotation": 0,
-        "scale": 1
+        "scale": 2.5
       },
       "prototype": true,
       "components": [
         {
           "type": "TextureComponent",
-          "textureName": "Textures/ship_enemy.png"
+          "textureName": "Textures/enemy_rocket.png"
         },
         {
           "type": "Box2DPhysicsComponent",
           "damping": 0,
           "gravityScale": 0,
-          "size": [ 32, 16 ],
-          "isSensor": true
+          "size": [ 8, 4 ],
+          "density": 0.3
         },
         {
           "type": "BulletComponent",
@@ -133,20 +155,20 @@
       "transform": {
         "position": [ 400, 300 ],
         "rotation": 0,
-        "scale": 1
+        "scale": 2.5
       },
       "prototype": true,
       "components": [
         {
           "type": "TextureComponent",
-          "textureName": "Textures/ship_enemy.png"
+          "textureName": "Textures/player_rocket.png"
         },
         {
           "type": "Box2DPhysicsComponent",
           "damping": 0,
           "gravityScale": 0,
-          "size": [ 32, 16 ],
-          "isSensor": true
+          "size": [ 8, 4 ],
+          "density": 0.3
         },
         {
           "type": "BulletComponent",

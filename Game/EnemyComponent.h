@@ -14,6 +14,7 @@ public:
 private:
 	MovementState m_movementState{ MovementState::TRAVELLING };
 	Vector2 m_lastTargetVelocity{ 0, 0 };
+	Vector2 m_lastVelocity{ 0, 0 };
 	float m_lastRotationAngle{ 0 };
 	float m_speed{ 0 };
 	float m_rotationSpeed = 0.03f;
@@ -30,6 +31,7 @@ public:
 	void Update(float dt) override;
 
 	void OnCollisionEnter(Actor* actor);
+	void OnCollisionExit(Actor* actor);
 
 	void FireStarboardThruster(float dt);
 	void FirePortThruster(float dt);

@@ -19,6 +19,7 @@ protected:
 	bool m_destroyed = false;
 	float m_lifespan = 0;
 	float m_collisionCooldown = 0;
+	bool m_useCameraOffset = true;
 
 	Vector2 m_initialVelocity{ 0, 0 };
 	Transform m_transform{ {0,0}, 0.0f, 0.0f };

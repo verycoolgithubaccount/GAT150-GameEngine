@@ -10,6 +10,7 @@
 #define ADD_OBSERVER(id, handlerFunction) EventManager::Instance().AddObserver(#id, this, std::bind(&handlerFunction, this, std::placeholders::_1));
 #define REMOVE_OBSERVER EventManager::Instance().RemoveObserver(this);
 #define EVENT_NOTIFY_DATA(id, data)	EventManager::Instance().Notify({ #id, data });
+#define EVENT_NOTIFY_DATA_NAME(id, data, name)	EventManager::Instance().Notify({ #id, data, #name });
 #define EVENT_NOTIFY(id) EventManager::Instance().Notify({ #id, true });
 
 class Observer;

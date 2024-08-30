@@ -10,6 +10,8 @@ struct Event
 {
 	id_t id;
 	data_t data;
+	std::string name;
 
 	Event(const id_t& id, data_t data) : id{ id }, data{ data } {}
+	Event(const id_t& id, data_t data, const std::string& name) : id{ id }, data{ data }, name{ name } {}
 };

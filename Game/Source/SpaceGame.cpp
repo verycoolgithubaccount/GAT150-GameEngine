@@ -7,7 +7,7 @@ bool SpaceGame::Initialize()
 {
 	m_scene = std::make_unique<Scene>(m_engine);
 
-	std::string sceneNames[] = { "scenes/space_tilemap.json", "scenes/scene.json" };
+	std::string sceneNames[] = { "scenes/space_tilemap.json", "scenes/scene.json", "scenes/menu.json" };
 	for (auto& sceneName : sceneNames)
 	{
 		// read json
@@ -16,6 +16,7 @@ bool SpaceGame::Initialize()
 		m_scene->Read(document);
 	}
 
+	m_restartTimer = 5;
 	m_scene->Initialize();
 
 	ADD_OBSERVER(PlayerDead, SpaceGame::OnPlayerDead);
@@ -31,20 +32,42 @@ void SpaceGame::Shutdown()
 
 void SpaceGame::Update(float dt)
 {
-	switch (m_state)
+	if (m_state == State::GAME)
 	{
-	case State::GAME:
 		if (m_spawnTimer < 0)
 		{
 			m_spawnTimer = 5;
-			auto enemy = Factory::Instance().Create<Actor>("enemy");
-			enemy->SetPosition(m_scene->GetCameraPosition() + (randomOnUnitCircle() * (m_engine->GetRenderer().GetWidth() / 1.8)));
-			enemy->SetInitialVelocity(m_scene->GetCameraVelocity());
+			if (randomf() > 0.6)
+			{
+				auto enemy = Factory::Instance().Create<Actor>("enemy");
+				enemy->SetPosition(m_scene->GetCameraPosition() + (randomOnUnitCircle() * (m_engine->GetRenderer().GetWidth() / 1.8)));
+				enemy->SetInitialVelocity(m_scene->GetCameraVelocity());
+				m_scene->AddActor(std::move(enemy), true);
+			}
+			else 
+			{
+				auto asteroid = Factory::Instance().Create<Actor>("asteroid");
+				Vector2 asteroidPosition = m_scene->GetCameraPosition() + (randomOnUnitCircle() * (m_engine->GetRenderer().GetWidth() / 2));
+				asteroid->SetPosition(asteroidPosition);
+				asteroid->SetInitialVelocity((m_scene->GetCameraVelocity() + asteroidPosition - m_scene->GetCameraPosition()).Normalized() * random(100, 1000));
+				m_scene->AddActor(std::move(asteroid), true);
+			}
+			
 
-			m_scene->AddActor(std::move(enemy), true);
 		}
-		break;
 	}
+	else
+	{
+		if (m_restartTimer > 0) m_restartTimer -= dt;
+		else
+		{
+			m_scene->RemoveAll();
+			m_scene.release();
+			Initialize();
+			m_state == State::GAME;
+		}
+	}
+
 	m_spawnTimer -= dt;
 
 	
@@ -59,7 +82,7 @@ void SpaceGame::Draw(Renderer& renderer)
 
 void SpaceGame::OnPlayerDead(const Event& event)
 {
-	m_state = State::PLAYER_DEAD;
+	m_state = State::GAME_OVER;
 }
 
 void SpaceGame::OnScoreIncrease(const Event& event)

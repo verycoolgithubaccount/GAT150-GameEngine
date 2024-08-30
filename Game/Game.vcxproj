@@ -177,6 +177,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Build\Assets\Scenes\game.json" />
+    <None Include="..\Build\Assets\Scenes\gui.json" />
+    <None Include="..\Build\Assets\Scenes\menu.json" />
     <None Include="..\Build\Assets\Scenes\scene.json" />
     <None Include="..\Build\Assets\Scenes\space_tilemap.json" />
     <None Include="..\Build\Assets\Scenes\tilemap.json" />

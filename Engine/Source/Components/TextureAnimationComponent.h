@@ -17,6 +17,8 @@ public:
 		int startFrame = 0;
 		int endFrame = 0;
 
+		int displayColumns = 0;
+
 		std::string textureName;
 		std::shared_ptr<Texture> texture;
 	};
@@ -28,6 +30,8 @@ public:
 	void Initialize() override;
 	void Update(float dt) override;
 	void SetAnimation(const std::string& name, bool update = true);
+
+	void HideSegments(std::string name, int segments, int goal);
 
 private:
 	void UpdateSource();

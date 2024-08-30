@@ -26,7 +26,7 @@ void BulletComponent::Update(float dt)
 
 void BulletComponent::OnCollisionEnter(Actor* actor)
 {
-	m_owner->MakeDestroyed();
+	if (actor->GetTag() != "background") m_owner->MakeDestroyed();
 }
 
 void BulletComponent::Read(const json_t& value)

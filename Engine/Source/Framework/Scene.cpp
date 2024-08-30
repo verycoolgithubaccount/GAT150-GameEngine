@@ -94,8 +94,13 @@ void Scene::Draw(Renderer& renderer)
 
 	for (auto& actor : actors)
 	{
+		if (actor->IsActive() && actor->GetTag() == "tile") actor->Draw(renderer, renderer.GetCameraOffset());
+		if (actor->IsActive() && actor->GetTag() == "background") actor->Draw(renderer, renderer.GetCameraOffset());
+	}
+	for (auto& actor : actors)
+	{
 		// Check that the actor is in bounds before drawing
-		if (actor->IsActive() &&
+		if (actor->IsActive() && actor->GetTag() != "gui" && actor->GetTag() != "tile" && actor->GetTag() != "background" &&
 			(actor->GetTransform().position + renderer.GetCameraOffset()).x < (renderer.GetWidth() * 1.3) &&
 			(actor->GetTransform().position + renderer.GetCameraOffset()).x > 0 - (renderer.GetWidth() * 0.3) &&
 			(actor->GetTransform().position + renderer.GetCameraOffset()).y < (renderer.GetHeight() * 1.3) &&
@@ -103,6 +108,10 @@ void Scene::Draw(Renderer& renderer)
 		{
 			actor->Draw(renderer, renderer.GetCameraOffset());
 		}
+	}
+	for (auto& actor : actors)
+	{
+		if (actor->IsActive() && actor->GetTag() == "gui") actor->Draw(renderer, renderer.GetCameraOffset());
 	}
 }
 

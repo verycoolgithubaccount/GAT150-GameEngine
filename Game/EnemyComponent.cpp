@@ -6,6 +6,7 @@ FACTORY_REGISTER(EnemyComponent);
 void EnemyComponent::Initialize()
 {
 	m_owner->OnCollisionEnter = std::bind(&EnemyComponent::OnCollisionEnter, this, std::placeholders::_1);
+	m_owner->OnCollisionExit = std::bind(&EnemyComponent::OnCollisionExit, this, std::placeholders::_1);
 	m_owner->GetComponent<PhysicsComponent>()->SetVelocity(m_owner->GetInitialVelocity());
 	Actor* target = m_owner->GetScene()->GetNearestActorWithComponent({ "PlayerComponent" }, m_owner->GetTransform().position);
 	Vector2 directionToTarget = target->GetTransform().position - m_owner->GetTransform().position;
@@ -124,6 +125,29 @@ void EnemyComponent::Update(float dt)
 
 void EnemyComponent::OnCollisionEnter(Actor* actor)
 {
+	std::cout << "hi" << std::endl;
+	m_lastVelocity = m_owner->GetComponent<PhysicsComponent>()->GetVelocity();
+	if (actor->GetTag() == "player_rocket")
+	{
+		m_health -= 1;
+		std::cout << m_health << std::endl;
+
+		if (m_health <= 0) OnDeath();
+	}
+}
+
+void EnemyComponent::OnCollisionExit(Actor* actor)
+{
+	std::cout << "hi" << std::endl;
+	if (actor->GetTag() == "player" || actor->GetTag() == "ally")
+	{
+		Vector2 changeInVelocity = m_lastVelocity - m_owner->GetComponent<PhysicsComponent>()->GetVelocity();
+
+		m_health -= (int)(changeInVelocity.Length() / 60);
+		std::cout << m_health << std::endl;
+
+		if (m_health <= 0) OnDeath();
+	}
 }
 
 void EnemyComponent::FireStarboardThruster(float dt)
@@ -194,6 +218,31 @@ void EnemyComponent::Rotate(Vector2 directionToTarget, float rotationGoal, float
 
 void EnemyComponent::OnDeath()
 {
+	for (int i = 0; i < 400; i++) // Explosion
+	{
+		Particle::Data data
+		{
+			m_owner->GetTransform().position,
+			m_owner->GetComponent<PhysicsComponent>()->GetVelocity() + (randomOnUnitCircle() * randomf(0, 300)),
+			randomf(0, 1),
+			Color{ 1, randomf(), randomf(0.0f, 0.3f) },
+			randomf(10.0f * m_owner->GetTransform().scale, 50.0f * m_owner->GetTransform().scale)
+		};
+		m_owner->GetScene()->GetEngine()->GetParticleSystem().AddParticle(data);
+	}
+	for (int i = 0; i < 100; i++) // Ring
+	{
+		Particle::Data data
+		{
+			m_owner->GetTransform().position,
+			m_owner->GetComponent<PhysicsComponent>()->GetVelocity() + (randomOnUnitCircle() * 450),
+			randomf(0, 1),
+			Color{ 1, 1, 1 },
+			randomf(2.8f * m_owner->GetTransform().scale, 3.8f * m_owner->GetTransform().scale)
+		};
+		m_owner->GetScene()->GetEngine()->GetParticleSystem().AddParticle(data);
+	}
+	m_owner->MakeDestroyed();
 }
 
 void EnemyComponent::Read(const json_t& value)

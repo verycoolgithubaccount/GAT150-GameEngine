@@ -64,17 +64,26 @@ void TextureAnimationComponent::SetAnimation(const std::string& name, bool updat
 	}
 }
 
+void TextureAnimationComponent::HideSegments(std::string name, int segments, int goal)
+{
+	float remaining = (float) goal / (float) segments;
+	m_animations.at(name).displayColumns = m_animations.at(name).numColumns / remaining;
+}
+
+
 void TextureAnimationComponent::UpdateSource()
 {
 	// calculate subimage size
 	Vector2 size = m_texture->GetSize() / Vector2{ m_animation->numColumns, m_animation->numRows };
 	int column = (frame - 1) % m_animation->numColumns;
+	Vector2 hiddenSegmentSize = m_texture->GetSize() / Vector2{ m_animation->displayColumns, m_animation->numRows };
+	int HiddenSegmentColumn = (frame - 1) % m_animation->displayColumns;
 	int row = (frame - 1) / m_animation->numColumns;
 
 	// set source rect from current column/row and subimage size
 	m_source.x = (int)(column * size.x);
-	m_source.y = (int)(row * size.y);
-	m_source.w = (int)(size.x);
+	m_source.y = (int)(row * hiddenSegmentSize.y);
+	m_source.w = (int)(hiddenSegmentSize.x);
 	m_source.h = (int)(size.y);
 }
 
@@ -96,6 +105,8 @@ void TextureAnimationComponent::Read(const json_t& value)
 			READ_DATA_NAME(animationValue, "startFrame", animation.startFrame);
 			READ_DATA_NAME(animationValue, "endFrame", animation.endFrame);
 			READ_DATA_NAME(animationValue, "textureName", animation.textureName);
+			if (HAS_DATA(animationValue, displayColumns)) READ_DATA_NAME(animationValue, "displayColumns", animation.displayColumns);
+			else animation.displayColumns = animation.numColumns;
 
 			// add animation to animations
 			m_animations[animation.name] = animation;

@@ -51,6 +51,12 @@
     <None Include="..\Build\Assets\Scenes\space_tilemap.json">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\Build\Assets\Scenes\gui.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Build\Assets\Scenes\menu.json">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Components\PlayerComponent.h">

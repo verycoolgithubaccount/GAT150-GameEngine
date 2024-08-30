@@ -1,12 +1,14 @@
 #pragma once
 #include "RenderComponent.h"
 #include "Renderer/Texture.h"
+#include "Math/Vector2.h"
 
 class TextureComponent : public RenderComponent
 {
 protected:
 	res_t<Texture> m_texture;
 	std::string m_textureName;
+	Vector2 m_textureOffset;
 	Rect m_source;
 	bool m_hflip{ false };
 public:
@@ -24,6 +26,8 @@ public:
 	void SetTextureName(std::string textureName) { m_textureName = textureName; }
 
 	void SetHFlip(bool hflip) { m_hflip = hflip; }
+
+	void SetTextureOffset(const Vector2& textureOffset) { m_textureOffset = textureOffset; }
 
 	Vector2 GetScale() { return Vector2{ m_source.w, m_source.h }; }
 };

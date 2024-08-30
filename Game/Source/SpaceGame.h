@@ -18,6 +18,7 @@ public:
 private:
 	State m_state{ State::GAME };
 	float m_spawnTimer = 5;
+	float m_restartTimer = 5;
 	std::unique_ptr<Scene> m_scene;
 public:
 	SpaceGame(Engine* engine) : Game{engine} {}

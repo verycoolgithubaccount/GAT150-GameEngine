@@ -31,7 +31,7 @@ void PlayerComponent::Update(float dt)
 			Particle::Data data
 			{
 				(transform.position - (Vector2{8.4f, 0 + randomf(-3, 3)} * transform.scale).Rotate(Math::DegToRad(transform.rotation))),
-				m_owner->GetComponent<PhysicsComponent>()->GetVelocity() * 3 + (Vector2{-thrust * m_speed * 5, randomf(-10, 10)}).Rotate(Math::DegToRad(transform.rotation)),
+				m_owner->GetComponent<PhysicsComponent>()->GetVelocity() * 2.5 + (Vector2{-thrust * m_speed * 5, randomf(-10, 10)}).Rotate(Math::DegToRad(transform.rotation)),
 				randomf(1, 3),
 				Color{randomf(), randomf(0.8f, 1), 1},
 				randomf(7.0f, 10.0f)
@@ -69,6 +69,7 @@ void PlayerComponent::OnCollisionEnter(Actor* actor)
 		m_owner->GetScene()->GetEngine()->GetAudio().PlaySound("Sounds/boom.wav");
 
 		m_health -= 1;
+		EVENT_NOTIFY_DATA_NAME(DisplayUpdate, m_health, health);
 
 		if (m_health <= 0 && !m_controlsDisabled) OnDeath();
 	}
@@ -76,17 +77,16 @@ void PlayerComponent::OnCollisionEnter(Actor* actor)
 
 void PlayerComponent::OnCollisionExit(Actor* actor)
 {
-	if (actor->GetTag() == "enemy" || actor->GetTag() == "ally")
+	if (actor->GetTag() == "enemy" || actor->GetTag() == "asteroid")
 	{
 		Vector2 changeInVelocity = m_lastVelocity - m_owner->GetComponent<PhysicsComponent>()->GetVelocity();
-
-		std::cout << (int) (changeInVelocity.Length() / 60) << std::endl;
 
 		if (changeInVelocity.Length() > 60) {
 			m_owner->GetScene()->GetEngine()->GetAudio().PlaySound("Sounds/ship_collision.wav");
 		}
 
 		m_health -= (int)(changeInVelocity.Length() / 60);
+		EVENT_NOTIFY_DATA_NAME(DisplayUpdate, m_health, health);
 
 		if (m_health <= 0 && !m_controlsDisabled) OnDeath();
 	}
@@ -94,7 +94,6 @@ void PlayerComponent::OnCollisionExit(Actor* actor)
 
 void PlayerComponent::OnDeath()
 {
-
 	EVENT_NOTIFY(PlayerDead);
 	for (int i = 0; i < 400; i++) // Explosion
 	{

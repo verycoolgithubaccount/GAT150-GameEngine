@@ -7,6 +7,7 @@
 #include "Engine.h"
 
 FACTORY_REGISTER(AudioComponent)
+
 AudioComponent::AudioComponent(const AudioComponent& other)
 {
 	m_playOnStart = other.m_playOnStart;
@@ -29,7 +30,7 @@ void AudioComponent::Initialize()
 }
 void AudioComponent::Update(float dt)
 {
-	if (m_owner->IsDestroyed()) Stop();
+	if (!m_owner || m_owner->IsDestroyed() || !m_owner->IsActive()) Stop();
 	if (m_playOnStart)
 	{
 		m_playOnStart = false;

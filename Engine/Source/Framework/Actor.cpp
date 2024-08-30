@@ -41,7 +41,7 @@ void Actor::Draw(Renderer& renderer, const Vector2& modifier)
 	for (auto& component : m_components)
 	{
 		RenderComponent* renderComponent = dynamic_cast<RenderComponent*>(component.get());
-		if (renderComponent) renderComponent->Draw(renderer, modifier);
+		if (renderComponent) (m_useCameraOffset) ? renderComponent->Draw(renderer, modifier) : renderComponent->Draw(renderer);
 	}
 }
 
@@ -68,6 +68,7 @@ void Actor::Read(const json_t& value)
 	Json::Read(value, "lifespan", m_lifespan);
 
 	READ_DATA_NAME(value, "initialVelocity", m_initialVelocity);
+	READ_DATA_NAME(value, "useCameraOffset", m_useCameraOffset);
 	// read transform
 	if (HAS_DATA(value, transform)) m_transform.Read(GET_DATA(value, transform));
 
@@ -107,6 +108,7 @@ Actor::Actor(const Actor& other)
 	m_transform = other.m_transform;
 	m_collisionCooldown = other.m_collisionCooldown;
 	m_initialVelocity = other.m_initialVelocity;
+	m_useCameraOffset = other.m_useCameraOffset;
 
 	for (auto& component : other.m_components)
 	{

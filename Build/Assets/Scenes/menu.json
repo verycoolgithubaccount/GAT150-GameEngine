@@ -1,0 +1,31 @@
+{
+  "actors": [
+    {
+      "name": "game",
+      "useCameraOffset": false,
+      "transform": {
+        "position": [ 300, 300 ]
+      },
+      "components": [
+        {
+          "type": "AudioComponent",
+          "soundName": "Sounds/music.wav",
+          "playOnStart": true,
+          "loop": true
+        },
+        {
+          "type": "TextComponent",
+          "text": "SPACE GAME",
+          "fontName": "Fonts/Avignon.ttf",
+          "fontSize": 100,
+          "color": [
+            0.0,
+            0.2,
+            0.2,
+            1
+          ]
+        }
+      ]
+    }
+  ]
+}

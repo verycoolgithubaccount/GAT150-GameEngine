@@ -3,7 +3,7 @@
     {
       "type": "Actor",
       "name": "column",
-      "tag": "ground",
+      "tag": "background",
       "prototype": true,
       "transform": {
         "scale": 8
@@ -29,7 +29,7 @@
     {
       "type": "Actor",
       "name": "floor",
-      "tag": "ground",
+      "tag": "tile",
       "prototype": true,
       "transform": {
         "scale": 8
@@ -54,7 +54,7 @@
     {
       "type": "Actor",
       "name": "main",
-      "tag": "ground",
+      "tag": "tile",
       "prototype": true,
       "transform": {
         "scale": 8
@@ -79,7 +79,7 @@
     {
       "type": "Actor",
       "name": "tower",
-      "tag": "ground",
+      "tag": "tile",
       "prototype": true,
       "transform": {
         "scale": 8
@@ -104,7 +104,7 @@
     {
       "type": "Actor",
       "name": "light",
-      "tag": "ground",
+      "tag": "tile",
       "prototype": true,
       "transform": {
         "scale": 8

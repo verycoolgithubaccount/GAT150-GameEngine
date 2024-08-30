@@ -6,7 +6,7 @@ class PlayerComponent : public Component
 {
 private:
 	float m_speed{ 0 };
-	float m_health{ 10 };
+	float m_health{ 8 };
 	float m_fireTimer{ 0 };
 	float m_collisionCooldown{ 0 };
 	bool m_controlsDisabled = false;
